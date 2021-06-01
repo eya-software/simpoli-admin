@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import '../index.css';
 import { useAuth } from '../contexts/AuthContext'
 
-export default function Signup() {
+
+export default function Signin() {
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { signup } = useAuth()
+  const { signin } = useAuth()
 
   function handleEmailChange(event) {
     setEmail(event.target.value)
@@ -17,26 +18,18 @@ export default function Signup() {
   function handlePasswordChange(event) {
     setPassword(event.target.value)
   }
-
-  function handlePasswordConfirmChange(event) {
-    setPasswordConfirm(event.target.value)
-  }
-
-
+  
   async function handleSubmit(event) {
     event.preventDefault()
-
-    if (password !== passwordConfirm) {
-      return setError('Passwrods do not match')
-    }
 
     try {
       setError('')
       setLoading(true)
-      await signup(email, password)
+      await signin(email, password)
+      console.log('Signed in!')
     } catch(e) {
       console.log(e)
-      setError('Failed to create an account')
+      setError('Failed to sign in')
     }
 
     setLoading(false)
@@ -51,7 +44,7 @@ export default function Signup() {
             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
             alt="Workflow"
           />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Admin Sign-Up</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
         </div>
         {error &&
           <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -90,27 +83,31 @@ export default function Signup() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 value={password}
                 onChange={handlePasswordChange}
               />
             </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Confirm Passowrd
-              </label>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
               <input
-                id="confirm-password"
-                name="confirm-password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Confirm Password"
-                value={passwordConfirm}
-                onChange={handlePasswordConfirmChange}
+                id="remember_me"
+                name="remember_me"
+                type="checkbox"
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
+              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+                Remember me
+              </label>
+            </div>
+
+            <div className="text-sm">
+              <a href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
+                Forgot your password?
+              </a>
             </div>
           </div>
 
@@ -121,7 +118,7 @@ export default function Signup() {
               disabled={loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Sign up
+              Sign in
             </button>
           </div>
         </form>

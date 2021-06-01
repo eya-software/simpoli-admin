@@ -1,9 +1,12 @@
 import React from 'react'
-import Signup from './Signup'
+import { AuthProvider } from '../contexts/AuthContext';
+import Signin from './Signin'
 
 function App() {
   return (
-    <Signup />
+    <AuthProvider>
+      <Signin />
+    </AuthProvider>
   )
 }
 
