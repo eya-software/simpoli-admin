@@ -5,14 +5,13 @@ import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 
 const navigation = ["Dashboard", "Team", "Projects", "Calendar"];
-const profile = ["Your Profile", "Settings", "Sign out"];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Dashboard() {
-  const { logout } = useAuth();
+  const { currentUser, logout } = useAuth();
   const history = useHistory();
 
   async function handleLogout() {
@@ -125,7 +124,7 @@ export default function Dashboard() {
                 </div>
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-200 focus:outline-none transition">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -145,7 +144,7 @@ export default function Dashboard() {
                       {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                       <a
                         href="/"
-                        className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                        className="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 dark:text-indigo-100 bg-indigo-50 dark:bg-indigo-800 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition"
                       >
                         {item}
                       </a>
@@ -154,14 +153,14 @@ export default function Dashboard() {
                     <a
                       key={item}
                       href="/"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                      className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-dark-med-emphasis hover:text-gray-800 dark:hover:text-dark-high-emphasis hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 transition"
                     >
                       {item}
                     </a>
                   )
                 )}
               </div>
-              <div className="pt-4 pb-3 border-t border-gray-700">
+              <div className="pt-4 pb-3 border-t border-gray-200">
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
                     <img
@@ -171,24 +170,30 @@ export default function Dashboard() {
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">
-                      Tom Cook
+                    <div className="text-base font-medium leading-none text-gray-800">
+                      First Last
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-400">
-                      tom@example.com
+                      {currentUser.email}
                     </div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
-                  {profile.map((item) => (
-                    <a
-                      key={item}
-                      href="/"
-                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                    >
-                      {item}
-                    </a>
-                  ))}
+                  <a
+                    key='Your Profile'
+                    href="/"
+                    className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-dark-med-emphasis hover:text-gray-800 dark:hover:text-dark-high-emphasis hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 transition"
+                  >
+                    Your Profile
+                  </a>
+                  <button
+                    onClick={logout}
+                    key='Sign Out'
+                    href="/"
+                    className="w-full text-left block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-dark-med-emphasis hover:text-gray-800 dark:hover:text-dark-high-emphasis hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 transition"
+                  >
+                    Sign Out
+                  </button>
                 </div>
               </div>
             </Disclosure.Panel>
@@ -202,7 +207,7 @@ export default function Dashboard() {
         </div>
       </header>
       <main>
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           Hello World
         </div>
       </main>
