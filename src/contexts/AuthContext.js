@@ -35,7 +35,7 @@ export function AuthProvider({ children }) {
     });
 
     return unsubscribe;
-  }, []);
+  }, [history]);
 
   const value = {
     currentUser,
