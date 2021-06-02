@@ -1,23 +1,23 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import { useAuth } from '../contexts/AuthContext'
-import { useHistory } from 'react-router-dom'
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { useAuth } from "../contexts/AuthContext";
+import { useHistory } from "react-router-dom";
 
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar']
-const profile = ['Your Profile', 'Settings', 'Sign out']
+const navigation = ["Dashboard", "Team", "Projects", "Calendar"];
+const profile = ["Your Profile", "Settings", "Sign out"];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Dashboard() {
-  const { logout } = useAuth()
-  const history = useHistory()
+  const { logout } = useAuth();
+  const history = useHistory();
 
   async function handleLogout() {
-    await logout()
-    history.push('/login')
+    await logout();
+    history.push("/login");
   }
 
   return (
@@ -40,7 +40,10 @@ export default function Dashboard() {
                       {navigation.map((item, itemIdx) =>
                         itemIdx === 0 ? (
                           <Fragment key={item}>
-                            <a href="#" className="h-full inline-flex items-center px-3 py-2 border-b-2 border-transparent text-base font-medium leading-6 text-black border-indigo-600 dark:text-dark-high-emphasis transition">
+                            <a
+                              href="#"
+                              className="h-full inline-flex items-center px-3 py-2 border-b-2 border-transparent text-base font-medium leading-6 text-black border-indigo-600 dark:text-dark-high-emphasis transition"
+                            >
                               {item}
                             </a>
                           </Fragment>
@@ -87,26 +90,26 @@ export default function Dashboard() {
                               static
                               className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             >
-                              <Menu.Item key='Your Profile'>
+                              <Menu.Item key="Your Profile">
                                 {({ active }) => (
                                   <a
                                     href="#"
                                     className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
                                     )}
                                   >
                                     Your Profile
                                   </a>
                                 )}
                               </Menu.Item>
-                              <Menu.Item key='Sign Out'>
+                              <Menu.Item key="Sign Out">
                                 {({ active }) => (
                                   <button
                                     onClick={handleLogout}
                                     className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-left text-gray-700 w-full'
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-left text-gray-700 w-full"
                                     )}
                                   >
                                     Sign Out
@@ -140,7 +143,10 @@ export default function Dashboard() {
                   itemIdx === 0 ? (
                     <Fragment key={item}>
                       {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                      <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                      <a
+                        href="#"
+                        className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                      >
                         {item}
                       </a>
                     </Fragment>
@@ -165,8 +171,12 @@ export default function Dashboard() {
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                    <div className="text-base font-medium leading-none text-white">
+                      Tom Cook
+                    </div>
+                    <div className="text-sm font-medium leading-none text-gray-400">
+                      tom@example.com
+                    </div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
@@ -197,5 +207,5 @@ export default function Dashboard() {
         </div>
       </main>
     </div>
-  )
+  );
 }
