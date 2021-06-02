@@ -1,10 +1,10 @@
-import React from 'react'
-import { AuthProvider } from '../contexts/AuthContext';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Signin from './Signin'
-import Signup from './Signup'
-import Dashboard from './Dashboard' 
-import PrivateRoute from './PrivateRoute';
+import React from "react";
+import { AuthProvider } from "../contexts/AuthContext";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Signin from "./Signin";
+import Signup from "./Signup";
+import Dashboard from "./Dashboard";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         </Switch>
       </AuthProvider>
     </Router>
-  )
+  );
 }
 
 export default App;
