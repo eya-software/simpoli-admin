@@ -9,7 +9,7 @@ export default function Signin() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { signin } = useAuth()
+  const { login } = useAuth()
 
   function handleEmailChange(event) {
     setEmail(event.target.value)
@@ -25,7 +25,7 @@ export default function Signin() {
     try {
       setError('')
       setLoading(true)
-      await signin(email, password)
+      await login(email, password)
       console.log('Signed in!')
     } catch(e) {
       console.log(e)
