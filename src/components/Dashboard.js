@@ -180,7 +180,7 @@ export default function Dashboard() {
                 </div>
                 <div className="mt-3 px-2 space-y-1">
                   <a
-                    key='Your Profile'
+                    key="Your Profile"
                     href="/"
                     className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-dark-med-emphasis hover:text-gray-800 dark:hover:text-dark-high-emphasis hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 transition"
                   >
@@ -188,7 +188,7 @@ export default function Dashboard() {
                   </a>
                   <button
                     onClick={logout}
-                    key='Sign Out'
+                    key="Sign Out"
                     href="/"
                     className="w-full text-left block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-dark-med-emphasis hover:text-gray-800 dark:hover:text-dark-high-emphasis hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 transition"
                   >
