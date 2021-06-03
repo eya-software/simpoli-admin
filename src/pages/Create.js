@@ -4,9 +4,9 @@ import ButtonGroup from "../components/ButtonGroup";
 import Page from "./Page";
 
 export default function Create() {
-  const [articleType, setArticleType] = useState("Policy")
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const today = new Date()
+  const [articleType, setArticleType] = useState("Policy");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const today = new Date();
 
   return (
     <>
@@ -15,16 +15,26 @@ export default function Create() {
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
               <div>
-                <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Article Type
+                <label
+                  htmlFor="first_name"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Article Type
                 </label>
-                <ButtonGroup options={["Policy", "News"]} value={articleType} onChange={(newType) => setArticleType(newType)} />
+                <ButtonGroup
+                  options={["Policy", "News"]}
+                  value={articleType}
+                  onChange={(newType) => setArticleType(newType)}
+                />
               </div>
-              
-              { articleType === "Policy" && 
+
+              {articleType === "Policy" && (
                 <>
                   <div>
-                    <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="first_name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Policy Title
                     </label>
                     <input
@@ -36,7 +46,10 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <label htmlFor="company_website" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="company_website"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Image Link
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
@@ -54,7 +67,10 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <label htmlFor="company_website" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="company_website"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Video Link
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
@@ -72,7 +88,10 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="about"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Policy Description
                     </label>
                     <div className="mt-1">
@@ -81,17 +100,19 @@ export default function Create() {
                         name="description"
                         rows={15}
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-                        defaultValue={''}
+                        defaultValue={""}
                       />
                     </div>
                   </div>
                 </>
-              }
-              {
-                articleType === "News" &&
+              )}
+              {articleType === "News" && (
                 <>
                   <div>
-                    <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="first_name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Article Title
                     </label>
                     <input
@@ -103,7 +124,10 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <label htmlFor="company_website" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="company_website"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Image Link
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
@@ -121,7 +145,10 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <label htmlFor="company_website" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="company_website"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Video Link
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
@@ -139,7 +166,10 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="about"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Article Content
                     </label>
                     <div className="mt-1">
@@ -148,12 +178,12 @@ export default function Create() {
                         name="description"
                         rows={15}
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-                        defaultValue={''}
+                        defaultValue={""}
                       />
                     </div>
                   </div>
                 </>
-              }
+              )}
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
@@ -164,13 +194,18 @@ export default function Create() {
               </button>
 
               <p className="mt-2 text-sm text-gray-500">
-                {"Date: " + today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear()}
+                {"Date: " +
+                  today.getMonth() +
+                  "/" +
+                  today.getDate() +
+                  "/" +
+                  today.getFullYear()}
               </p>
             </div>
           </div>
         </div>
       </Page>
-      <AlertDialog 
+      <AlertDialog
         isOpen={dialogOpen}
         setOpen={setDialogOpen}
         title="Create Post"
