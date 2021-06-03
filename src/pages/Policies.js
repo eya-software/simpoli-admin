@@ -1,14 +1,12 @@
 import React from 'react';
 import Page from './Page';
 
-function Dashboard() {
+export default function Policies() {
   return (
     <>
-      <Page name="Dashboard" >
+      <Page name="Policies" >
         Hello World
       </Page>
     </>
   );
 }
-
-export default Dashboard;

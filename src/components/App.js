@@ -5,8 +5,9 @@ import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import Dashboard from "../pages/Dashboard";
 import PrivateRoute from "./PrivateRoute";
-import Projects from "../pages/Projects";
-import Team from "../pages/Team";
+import Policies from "../pages/Policies";
+import News from "../pages/News";
+import Create from "../pages/Create";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
       <AuthProvider>
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
-          <PrivateRoute path="/projects" component={Projects} />
-          <PrivateRoute path="/team" component={Team} />
+          <PrivateRoute path="/policies" component={Policies} />
+          <PrivateRoute path="/news" component={News} />
+          <PrivateRoute path="/create" component={Create} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Signin} />
         </Switch>
