@@ -1,45 +1,44 @@
-import React, { useState } from 'react'
-import '../index.css';
-import { useAuth } from '../contexts/AuthContext'
+import React, { useState } from "react";
+import "../index.css";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Signup() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const { signup } = useAuth()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { signup } = useAuth();
 
   function handleEmailChange(event) {
-    setEmail(event.target.value)
+    setEmail(event.target.value);
   }
 
   function handlePasswordChange(event) {
-    setPassword(event.target.value)
+    setPassword(event.target.value);
   }
 
   function handlePasswordConfirmChange(event) {
-    setPasswordConfirm(event.target.value)
+    setPasswordConfirm(event.target.value);
   }
 
-
   async function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     if (password !== passwordConfirm) {
-      return setError('Passwrods do not match')
+      return setError("Passwrods do not match");
     }
 
     try {
-      setError('')
-      setLoading(true)
-      await signup(email, password)
-    } catch(e) {
-      console.log(e)
-      setError('Failed to create an account')
+      setError("");
+      setLoading(true);
+      await signup(email, password);
+    } catch (e) {
+      console.log(e);
+      setError("Failed to create an account");
     }
 
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
@@ -51,16 +50,29 @@ export default function Signup() {
             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
             alt="Workflow"
           />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Admin Sign-Up</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Admin Sign-Up
+          </h2>
         </div>
-        {error &&
-          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        {error && (
+          <div
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
             <span class="block sm:inline">{error}</span>
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-              <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+              <svg
+                class="fill-current h-6 w-6 text-red-500"
+                role="button"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <title>Close</title>
+                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+              </svg>
             </span>
           </div>
-        }
+        )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
@@ -127,5 +139,5 @@ export default function Signup() {
         </form>
       </div>
     </div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import Navigation from '../components/Navigation';
+import React from "react";
+import Navigation from "../components/Navigation";
 
 export default function Team() {
   return (
