@@ -2,11 +2,63 @@ import React, { useState } from "react";
 import AlertDialog from "../components/AlertDialog";
 import ButtonGroup from "../components/ButtonGroup";
 import Page from "./Page";
+import { firestore as db } from "../firebase";
 
 export default function Create() {
   const [articleType, setArticleType] = useState("Policy");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [video, setVideo] = useState("");
+  const [description, setDescription] = useState("");
+
+  const [title1, setTitle1] = useState("");
+  const [image1, setImage1] = useState("");
+  const [video1, setVideo1] = useState("");
+  const [description1, setDescription1] = useState("");
   const today = new Date();
+
+  async function createPost() {
+    let collectionRef;
+    if (articleType === "Policy") {
+      collectionRef = db.collection("policies");
+      try {
+        await collectionRef.add({
+          title: title,
+          image: image,
+          video: video,
+          description: description,
+        });
+        clearFields();
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      collectionRef = db.collection("news");
+      try {
+        await collectionRef.add({
+          title: title1,
+          image: image1,
+          video: video1,
+          description: description1,
+        });
+        clearFields();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+
+  function clearFields() {
+    setTitle("");
+    setImage("");
+    setVideo("");
+    setDescription("");
+    setTitle1("");
+    setImage1("");
+    setVideo1("");
+    setDescription1("");
+  }
 
   return (
     <>
@@ -39,9 +91,11 @@ export default function Create() {
                     </label>
                     <input
                       type="text"
-                      name="artiicle_title"
+                      name="article_title"
                       id="article_title"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={title}
+                      onChange={(event) => setTitle(event.target.value)}
                     />
                   </div>
 
@@ -57,11 +111,13 @@ export default function Create() {
                         http://
                       </span>
                       <input
-                        type="text"
+                        type="url"
                         name="image_link"
                         id="image_link"
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
+                        value={image}
+                        onChange={(event) => setImage(event.target.value)}
                       />
                     </div>
                   </div>
@@ -78,11 +134,13 @@ export default function Create() {
                         http://
                       </span>
                       <input
-                        type="text"
+                        type="url"
                         name="video_link"
                         id="video_link"
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.youtube.com/watch?v=example"
+                        value={video}
+                        onChange={(event) => setVideo(event.target.value)}
                       />
                     </div>
                   </div>
@@ -100,7 +158,8 @@ export default function Create() {
                         name="description"
                         rows={15}
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-                        defaultValue={""}
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
                       />
                     </div>
                   </div>
@@ -110,22 +169,25 @@ export default function Create() {
                 <>
                   <div>
                     <label
-                      htmlFor="first_name"
+                      htmlFor="article_title"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Article Title
                     </label>
                     <input
                       type="text"
-                      name="artiicle_title"
+                      required
+                      name="article_title"
                       id="article_title"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={title1}
+                      onChange={(event) => setTitle1(event.target.value)}
                     />
                   </div>
 
                   <div>
                     <label
-                      htmlFor="company_website"
+                      htmlFor="image_link"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Image Link
@@ -135,18 +197,20 @@ export default function Create() {
                         http://
                       </span>
                       <input
-                        type="text"
+                        type="url"
                         name="image_link"
                         id="image_link"
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
+                        value={image1}
+                        onChange={(event) => setImage1(event.target.value)}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label
-                      htmlFor="company_website"
+                      htmlFor="video_link"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Video Link
@@ -156,18 +220,20 @@ export default function Create() {
                         http://
                       </span>
                       <input
-                        type="text"
+                        type="url"
                         name="video_link"
                         id="video_link"
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.youtube.com/watch?v=example"
+                        value={video1}
+                        onChange={(event) => setVideo1(event.target.value)}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label
-                      htmlFor="about"
+                      htmlFor="description"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Article Content
@@ -178,7 +244,10 @@ export default function Create() {
                         name="description"
                         rows={15}
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-                        defaultValue={""}
+                        value={description1}
+                        onChange={(event) =>
+                          setDescription1(event.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -211,7 +280,7 @@ export default function Create() {
         title="Create Post"
         message="Are you sure you want to create this post? It will immediately show up on the app."
         actionName="Post"
-        action={() => console.log("hi")}
+        action={createPost}
       />
     </>
   );
