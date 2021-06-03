@@ -4,13 +4,18 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 
-const navigation = ["Dashboard", "Team", "Projects", "Calendar"];
+const navigation = ["Dashboard", "Projects", "Team"]
+const routes = {
+  "Dashboard": "/",
+  "Projects": "/projects",
+  "Team": "/team"
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Dashboard() {
+export default function Navigation(props) {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
 
@@ -20,8 +25,8 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
-      <Disclosure as="nav" className="bg-white border-b border-gray-200">
+    <div className="sticky top-0">
+      <Disclosure as="nav" className="bg-white shadow position:sticky">
         {({ open }) => (
           <>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,24 +41,24 @@ export default function Dashboard() {
                   </div>
                   <div className="hidden md:block h-full">
                     <div className="ml-10 flex items-baseline space-x-4 h-full">
-                      {navigation.map((item, itemIdx) =>
-                        itemIdx === 0 ? (
+                      {navigation.map((item) =>
+                        props.active === item ? (
                           <Fragment key={item}>
-                            <a
-                              href="/"
+                            <button
+                              onClick={() => history.push(routes[item])}
                               className="h-full inline-flex items-center px-3 py-2 border-b-2 border-transparent text-base font-medium leading-6 text-black border-indigo-600 dark:text-dark-high-emphasis transition"
                             >
                               {item}
-                            </a>
+                            </button>
                           </Fragment>
                         ) : (
-                          <a
+                          <button
                             key={item}
-                            href="/"
+                            onClick={() => history.push(routes[item])}
                             className="h-full inline-flex items-center px-3 py-2 border-b-2 border-transparent text-base font-medium leading-6 text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-dark-high-emphasis focus:outline-none focus:text-gray-700 focus:border-gray-300 transition"
                           >
                             {item}
-                          </a>
+                          </button>
                         )
                       )}
                     </div>
@@ -138,25 +143,25 @@ export default function Dashboard() {
 
             <Disclosure.Panel className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navigation.map((item, itemIdx) =>
-                  itemIdx === 0 ? (
+                {navigation.map((item) =>
+                  item === props.active ? (
                     <Fragment key={item}>
                       {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                      <a
-                        href="/"
-                        className="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 dark:text-indigo-100 bg-indigo-50 dark:bg-indigo-800 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition"
+                      <button
+                        onclick={() => history.push(routes[item])}
+                        className="w-full text-left block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 dark:text-indigo-100 bg-indigo-50 dark:bg-indigo-800 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition"
                       >
                         {item}
-                      </a>
+                      </button>
                     </Fragment>
                   ) : (
-                    <a
+                    <button
                       key={item}
-                      href="/"
-                      className="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-dark-med-emphasis hover:text-gray-800 dark:hover:text-dark-high-emphasis hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 transition"
+                      onClick={() => history.push(routes[item])}
+                      className="w-full text-left block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 dark:text-dark-med-emphasis hover:text-gray-800 dark:hover:text-dark-high-emphasis hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500 focus:outline-none focus:text-gray-800 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 transition"
                     >
                       {item}
-                    </a>
+                    </button>
                   )
                 )}
               </div>
@@ -200,17 +205,6 @@ export default function Dashboard() {
           </>
         )}
       </Disclosure>
-
-      <header className="bg-white">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        </div>
-      </header>
-      <main>
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          Hello World
-        </div>
-      </main>
     </div>
   );
 }
