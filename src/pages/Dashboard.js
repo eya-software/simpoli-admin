@@ -1,12 +1,10 @@
-import React from 'react';
-import Page from './Page';
+import React from "react";
+import Page from "./Page";
 
 function Dashboard() {
   return (
     <>
-      <Page name="Dashboard" >
-        Hello World
-      </Page>
+      <Page name="Dashboard">Hello World</Page>
     </>
   );
 }

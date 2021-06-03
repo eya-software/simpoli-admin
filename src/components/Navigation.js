@@ -4,12 +4,12 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 
-const navigation = ["Dashboard", "Policies", "News", "Create"]
+const navigation = ["Dashboard", "Policies", "News", "Create"];
 const routes = {
   Dashboard: "/",
   Policies: "/policies",
   News: "/news",
-  Create: "/create"
+  Create: "/create",
 };
 
 function classNames(...classes) {
