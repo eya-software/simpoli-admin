@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AlertDialog from "../components/AlertDialog";
 import ButtonGroup from "../components/ButtonGroup";
 import Page from "./Page";
-import { firestore as db } from "../firebase"
+import { firestore as db } from "../firebase";
 
 export default function Create() {
   const [articleType, setArticleType] = useState("Policy");
@@ -18,7 +18,7 @@ export default function Create() {
   const [description1, setDescription1] = useState("");
   const today = new Date();
 
-  async function createPost() {    
+  async function createPost() {
     let collectionRef;
     if (articleType === "Policy") {
       collectionRef = db.collection("policies");
@@ -27,11 +27,11 @@ export default function Create() {
           title: title,
           image: image,
           video: video,
-          description: description
+          description: description,
         });
         clearFields();
-      } catch(e) {
-        console.log(e)
+      } catch (e) {
+        console.log(e);
       }
     } else {
       collectionRef = db.collection("news");
@@ -40,11 +40,11 @@ export default function Create() {
           title: title1,
           image: image1,
           video: video1,
-          description: description1
+          description: description1,
         });
         clearFields();
-      } catch(e) {
-        console.log(e)
+      } catch (e) {
+        console.log(e);
       }
     }
   }
@@ -245,7 +245,9 @@ export default function Create() {
                         rows={15}
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         value={description1}
-                        onChange={(event) => setDescription1(event.target.value)}
+                        onChange={(event) =>
+                          setDescription1(event.target.value)
+                        }
                       />
                     </div>
                   </div>
