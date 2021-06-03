@@ -6,10 +6,10 @@ import { useHistory } from "react-router-dom";
 
 const navigation = ["Dashboard", "Policies", "News", "Create"]
 const routes = {
-  "Dashboard": "/",
-  "Policies": "/policies",
-  "News": "/news",
-  "Create": "/create"
+  Dashboard: "/",
+  Policies: "/policies",
+  News: "/news",
+  Create: "/create"
 };
 
 function classNames(...classes) {
