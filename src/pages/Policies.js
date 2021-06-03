@@ -1,7 +1,6 @@
 import React from "react";
 import Page from "./Page";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import Card from "@material-ui/core/Card";
 
 const policy = [
   {
