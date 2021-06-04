@@ -195,7 +195,7 @@ export default function Create() {
 
               <p className="mt-2 text-sm text-gray-500">
                 {"Date: " +
-                  today.getMonth() +
+                  (today.getMonth() + 1) +
                   "/" +
                   today.getDate() +
                   "/" +
