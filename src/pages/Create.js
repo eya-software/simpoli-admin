@@ -28,6 +28,7 @@ export default function Create() {
           image: image,
           video: video,
           description: description,
+          date: today
         });
         clearFields();
       } catch (e) {
@@ -41,6 +42,7 @@ export default function Create() {
           image: image1,
           video: video1,
           description: description1,
+          date: today
         });
         clearFields();
       } catch (e) {
