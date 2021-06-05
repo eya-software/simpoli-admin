@@ -29,7 +29,7 @@ export default function Create() {
           video: video,
           description: description,
           date: today,
-          status: 1
+          status: 1,
         });
         clearFields();
       } catch (e) {
@@ -44,7 +44,7 @@ export default function Create() {
           video: video1,
           description: description1,
           date: today,
-          status: 1
+          status: 1,
         });
         clearFields();
       } catch (e) {
