@@ -45,6 +45,15 @@ export default class Policies extends Component {
       });
   }
 
+  setPolicyStatus(id, status) {
+    firestore
+      .collection("policies")
+      .doc(id)
+      .update({
+        status: status
+      });
+  }
+
   componentDidMount() {
     this.getPolicies();
   }
@@ -96,7 +105,6 @@ export default class Policies extends Component {
                     <span className="sr-only">Previous</span>
                     <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                   </a>
-                  {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
                   <a
                     href="/"
                     aria-current="page"
@@ -171,7 +179,13 @@ export default class Policies extends Component {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Article Status
+                          Status
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        >
+                          Author
                         </th>
                         <th scope="col" className="relative px-6 py-3">
                           <span className="sr-only">Edit</span>
@@ -202,23 +216,30 @@ export default class Policies extends Component {
                               {policy.description}
                             </div>
                           </td>
-                          <td className="px-12 py-4 whitespace-nowrap">
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                              {policy.status}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a
-                              href="/"
-                              className="text-indigo-600 hover:text-indigo-900"
-                            >
-                              Read More
-                            </a>
+                          {
+                            policy.status === 0 && <td className="px-5 py-4 whitespace-nowrap">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                Archived
+                              </span>
+                            </td>
+                          }
+                          {
+                            policy.status === 1 && <td className="px-5 py-4 whitespace-nowrap">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                Active
+                              </span>
+                            </td>
+                          }
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">
+                              {policy.description}
+                            </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <button
+                              className="focus:outline-none"
                               onClick={() => {
-                                this.deletePolicy(policy.id);
+                                this.setPolicyStatus(policy.id, 1-policy.status);
                               }}
                             >
                               <ArchiveIcon
@@ -227,8 +248,9 @@ export default class Policies extends Component {
                               />
                             </button>
                             <button
+                              className="focus:outline-none"
                               onClick={() => {
-                                // TODO
+                                this.deletePolicy(policy.id);
                               }}
                             >
                               <TrashIcon
