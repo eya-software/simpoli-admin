@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Page from "./Page";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
+import ClipLoader from "react-spinners/ClipLoader";
 import { firestore } from "../firebase";
 import "firebase/firestore";
 
@@ -35,7 +36,9 @@ export default class Policies extends Component {
   }
 
   deletePolicy(id) {
-    firestore.collection("policies").doc(id).delete();
+    firestore.collection("policies").doc(id).delete().then(() => {
+      console.log("Delete successful")
+    });
   }
 
   componentDidMount() {
@@ -44,7 +47,11 @@ export default class Policies extends Component {
 
   render() {
     if (this.state.loading) {
-      return <Page name="Policies">Loading...</Page>;
+      return (
+        <Page name="Policies">
+          <ClipLoader color="#4338CA" loading={true}></ClipLoader>
+        </Page>
+      );
     }
 
     return (
