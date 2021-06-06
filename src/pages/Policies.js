@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Page from "./Page";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
 import { db } from "../firebase";
 import "firebase/firestore";
 
@@ -205,21 +205,25 @@ export default class Policies extends Component {
                             </a>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a
-                              href="/"
-                              className="text-yellow-600 hover:text-indigo-900"
-                            >
-                              <FontAwesomeIcon icon={["fas", "archive"]} />
-                            </a>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <button
-                              className="delete-btn"
+                          <button
                               onClick={() => {
                                 this.deletePolicy(policy.id);
                               }}
                             >
-                              <FontAwesomeIcon icon={["fas", "trash-alt"]} />
+                              <ArchiveIcon
+                                className="h-6 w-6 mr-4 text-indigo-600"
+                                aria-hidden="true"
+                              />
+                            </button>
+                            <button
+                              onClick={() => {
+                                // TODO
+                              }}
+                            >
+                              <TrashIcon
+                                className="h-6 w-6 text-red-600"
+                                aria-hidden="true"
+                              />
                             </button>
                           </td>
                         </tr>
