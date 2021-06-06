@@ -7,6 +7,8 @@ import { firestore as db } from "../firebase";
 export default function Create() {
   const [articleType, setArticleType] = useState("Policy");
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [video, setVideo] = useState("");
@@ -20,7 +22,15 @@ export default function Create() {
 
   async function createPost() {
     let collectionRef;
+    setError("");
+    setSuccess("");
+
     if (articleType === "Policy") {
+      if (!(title && description && image)) {
+        setError("You are missing some required fields.");
+        return;
+      }
+
       collectionRef = db.collection("policies");
       try {
         await collectionRef.add({
@@ -32,10 +42,21 @@ export default function Create() {
           status: 1
         });
         clearFields();
+        setSuccess("Success! This policy is now being displayed on the app.");
+        console.log(success);
       } catch (e) {
-        console.log(e);
+        setError("There was an error with submission. Please try again later.");
+        db.collection("errors").add({
+          message: e
+        });
+        return;
       }
     } else {
+      if (!(title1 && description1 && image1)) {
+        setError("You are missing some required fields.");
+        return;
+      }
+
       collectionRef = db.collection("news");
       try {
         await collectionRef.add({
@@ -47,8 +68,13 @@ export default function Create() {
           status: 1
         });
         clearFields();
+        setSuccess("Success! This article is now being displayed on the app.");
       } catch (e) {
-        console.log(e);
+        setError("There was an error with submission. Please try again later.");
+        db.collection("errors").add({
+          message: e
+        });
+        return;
       }
     }
   }
@@ -259,6 +285,36 @@ export default function Create() {
               )}
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+
+              {error && (
+                <div
+                  class="bg-red-100 text-left border border-red-400 text-red-700 mb-3 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  <span class="block sm:inline">{error}</span>
+                  <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg
+                      class="fill-current h-6 w-6 text-red-500"
+                      role="button"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <title>Close</title>
+                      <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                  </span>
+                </div>
+              )}
+
+              {success && (
+                <div
+                  class="bg-green-100 text-left border border-green-400 text-green-700 mb-3 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  <span class="block sm:inline">{success}</span>
+                </div>
+              )}  
+
               <button
                 onClick={() => setDialogOpen(true)}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
