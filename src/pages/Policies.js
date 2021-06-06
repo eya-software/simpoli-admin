@@ -46,12 +46,9 @@ export default class Policies extends Component {
   }
 
   setPolicyStatus(id, status) {
-    firestore
-      .collection("policies")
-      .doc(id)
-      .update({
-        status: status
-      });
+    firestore.collection("policies").doc(id).update({
+      status: status,
+    });
   }
 
   componentDidMount() {
@@ -216,20 +213,20 @@ export default class Policies extends Component {
                               {policy.description}
                             </div>
                           </td>
-                          {
-                            policy.status === 0 && <td className="px-5 py-4 whitespace-nowrap">
+                          {policy.status === 0 && (
+                            <td className="px-5 py-4 whitespace-nowrap">
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                 Archived
                               </span>
                             </td>
-                          }
-                          {
-                            policy.status === 1 && <td className="px-5 py-4 whitespace-nowrap">
+                          )}
+                          {policy.status === 1 && (
+                            <td className="px-5 py-4 whitespace-nowrap">
                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 Active
                               </span>
                             </td>
-                          }
+                          )}
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
                               {policy.description}
@@ -239,7 +236,10 @@ export default class Policies extends Component {
                             <button
                               className="focus:outline-none"
                               onClick={() => {
-                                this.setPolicyStatus(policy.id, 1-policy.status);
+                                this.setPolicyStatus(
+                                  policy.id,
+                                  1 - policy.status
+                                );
                               }}
                             >
                               <ArchiveIcon
