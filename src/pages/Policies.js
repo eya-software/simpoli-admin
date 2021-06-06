@@ -5,32 +5,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { db } from "../firebase";
 import "firebase/firestore";
 
-
 export default class Policies extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       loading: false,
-      policies: []
+      policies: [],
     };
   }
 
   getPolicies() {
     this.setState({
-      loading: true
+      loading: true,
     });
     db.collection("policies").onSnapshot((querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         let policy = doc.data();
-        policy['id'] = doc.id;
+        policy["id"] = doc.id;
         items.push(policy);
         console.log(policy);
       });
       this.setState({
         loading: false,
-        policies: items
+        policies: items,
       });
     });
   }
@@ -45,9 +44,7 @@ export default class Policies extends Component {
 
   render() {
     if (this.state.loading) {
-      return <Page name="Policies">
-        Loading...
-      </Page>
+      return <Page name="Policies">Loading...</Page>;
     }
 
     return (
