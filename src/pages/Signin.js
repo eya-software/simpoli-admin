@@ -24,7 +24,6 @@ export default function Signin() {
       setError("");
       setLoading(true);
       await login(email, password);
-      console.log("Signed in!");
     } catch (e) {
       console.log(e);
       setError("Failed to sign in");
