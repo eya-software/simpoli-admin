@@ -47,7 +47,7 @@ export default function Create() {
       } catch (e) {
         setError("There was an error with submission. Please try again later.");
         db.collection("errors").add({
-          message: e
+          message: e,
         });
         return;
       }
@@ -72,7 +72,7 @@ export default function Create() {
       } catch (e) {
         setError("There was an error with submission. Please try again later.");
         db.collection("errors").add({
-          message: e
+          message: e,
         });
         return;
       }
@@ -285,7 +285,6 @@ export default function Create() {
               )}
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-
               {error && (
                 <div
                   class="bg-red-100 text-left border border-red-400 text-red-700 mb-3 px-4 py-3 rounded relative"
@@ -313,7 +312,7 @@ export default function Create() {
                 >
                   <span class="block sm:inline">{success}</span>
                 </div>
-              )}  
+              )}
 
               <button
                 onClick={() => setDialogOpen(true)}
