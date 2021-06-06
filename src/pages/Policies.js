@@ -2,17 +2,62 @@ import React from "react";
 import Page from "./Page";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import Card from "@material-ui/core/Card";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRandom } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faCoffee } from '@fortawesome/fontawesome-free-solid'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import "firebase/firestore"
+import { useState, useEffect } from "react";
 
-const policy = [
+
+
+/*const policy = [
   {
     name: 'George Floyd Justice in Policing Act of 2020',
-    description: 'Addresses issues regarding policing practices',
-    image:
+    short_desc: 'Addresses issues regarding policing practices',
+    image_link:
       'https://images.assettype.com/freepressjournal%2F2020-06%2F6a02b775-b91b-4c24-99c8-55976cb20966%2F27georgefloyd_superJumbo.jpg?rect=142%2C0%2C497%2C497&w=128&dpr=2.6',
+    article_status: 'Active'
   },
   // More policies...
-]
+]*/
 export default function Policies() {
+  const [policies, setPolicies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const ref = firebase.firestore().collection("policies");
+  function getPolicies() {
+  	setLoading(true);
+  	ref.onSnapshot((querySnapshot) => {
+  		const items = [];
+  		querySnapshot.forEach((doc) => {
+  			items.push(doc.data());
+  		})
+  		setPolicies(items);
+  		setLoading(false);
+  	})
+  }
+  function deletePolicy(id) {
+  	console.log("policy" + `${id}`)
+  	ref.doc("policy" + `${id}`).delete().then(() => {
+    console.log("Document successfully deleted!");
+	}).catch((error) => {
+    console.error("Error removing document: ", error);
+	});
+  }
+
+
+  useEffect(() => {
+  	getPolicies();
+  }, []);
+
+
+
+
+  if (loading) {
+  	return <h1>Loading...</h1>;
+  }
+
   return (
     <>
       <Page name="Policies">
@@ -104,7 +149,7 @@ export default function Policies() {
 		    <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
 		      <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
 		        <table className="min-w-full divide-y divide-gray-200">
-		          <thead className="bg-gray-50">
+		          <thead className="bg-gray-100">
 		            <tr>
 		              <th
 		                scope="col"
@@ -126,28 +171,28 @@ export default function Policies() {
 		              </th>
 		              <th scope="col" className="relative px-6 py-3">
 		                <span className="sr-only">Edit</span>
-		              </th>
+		              </th>	              
 		            </tr>
 		          </thead>
 		          <tbody className="bg-white divide-y divide-gray-200">
-		            {policy.map((policy) => (
-		              <tr key={policy.email}>
-		                <td className="px-6 py-4 whitespace-nowrap">
+		            {policies.map((policy) => (
+		              <tr>
+		                <td className="px-6 py-8 whitespace-nowrap">
 		                  <div className="flex items-center">
 		                    <div className="flex-shrink-0 h-10 w-10">
-		                      <img className="h-10 w-10 rounded-full" src={policy.image} alt="" />
+		                      <img className="h-10 w-10 rounded-full" src={policy.image_link} alt="" />
 		                    </div>
 		                    <div className="ml-4">
-		                      <div className="text-sm font-medium text-gray-900">{policy.name}</div>
+		                      <div className="text-sm font-medium text-gray-900">{policy.title}</div>
 		                    </div>
 		                  </div>
 		                </td>
 		                <td className="px-6 py-4 whitespace-nowrap">
 		                  <div className="text-sm text-gray-900">{policy.description}</div>
 		                </td>
-		                <td className="px-6 py-4 whitespace-nowrap">
+		                <td className="px-12 py-4 whitespace-nowrap">
 		                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-		                    Active
+		                    {policy.status}
 		                  </span>
 		                </td>
 		                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -155,6 +200,17 @@ export default function Policies() {
 		                    Read More
 		                  </a>
 		                </td>
+		                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+		                  <a href="/" className="text-yellow-600 hover:text-indigo-900">
+		                  	<FontAwesomeIcon icon={['fas', 'archive']} />
+		                  </a>
+		                </td>
+		                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+		                  <button className = 'delete-btn' onClick={() => {deletePolicy(policy.id)}}>
+		                  	<FontAwesomeIcon icon={['fas', 'trash-alt']} />
+		                  </button>
+
+		                </td>		                
 		              </tr>
 		            ))}
 		          </tbody>
