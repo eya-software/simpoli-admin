@@ -36,9 +36,13 @@ export default class Policies extends Component {
   }
 
   deletePolicy(id) {
-    firestore.collection("policies").doc(id).delete().then(() => {
-      console.log("Delete successful")
-    });
+    firestore
+      .collection("policies")
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log("Delete successful");
+      });
   }
 
   componentDidMount() {
