@@ -39,7 +39,7 @@ export default function Create() {
           video: video,
           description: description,
           date: today,
-          status: 1
+          status: 1,
         });
         clearFields();
         setSuccess("Success! This policy is now being displayed on the app.");
@@ -65,7 +65,7 @@ export default function Create() {
           video: video1,
           description: description1,
           date: today,
-          status: 1
+          status: 1,
         });
         clearFields();
         setSuccess("Success! This article is now being displayed on the app.");
