@@ -35,7 +35,7 @@ export default class Policies extends Component {
   }
 
   deletePolicy(id) {
-    db.collection("policies").doc("id").delete();
+    db.collection("policies").doc(id).delete();
   }
 
   componentDidMount() {
