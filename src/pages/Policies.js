@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Page from "./Page";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
-import { db } from "../firebase";
+import { firestore } from "../firebase";
 import "firebase/firestore";
 
 export default class Policies extends Component {
@@ -19,7 +19,7 @@ export default class Policies extends Component {
     this.setState({
       loading: true,
     });
-    db.collection("policies").onSnapshot((querySnapshot) => {
+    firestore.collection("policies").onSnapshot((querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         let policy = doc.data();
@@ -35,7 +35,7 @@ export default class Policies extends Component {
   }
 
   deletePolicy(id) {
-    db.collection("policies").doc(id).delete();
+    firestore.collection("policies").doc(id).delete();
   }
 
   componentDidMount() {
