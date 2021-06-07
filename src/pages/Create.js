@@ -32,6 +32,9 @@ export default function Create() {
       }
 
       collectionRef = db.collection("policies");
+      if (!image.startsWith("http")) {
+        setImage("http://" + image);
+      }
       try {
         await collectionRef.add({
           title: title,
@@ -58,6 +61,9 @@ export default function Create() {
       }
 
       collectionRef = db.collection("news");
+      if (!image1.startsWith("http")) {
+        setImage1("http://" + image);
+      }
       try {
         await collectionRef.add({
           title: title1,
