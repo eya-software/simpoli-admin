@@ -204,7 +204,7 @@ export default class Policies extends Component {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {policy.description.substr(0, 40)}...
+                            {policy.description.length > 40 ? policy.description.substr(0, 40) + "..." : policy.description}
                             </div>
                           </td>
                           {policy.status === 0 && (
