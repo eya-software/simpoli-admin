@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Page from "./Page";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
+// import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
-import ClipLoader from "react-spinners/ClipLoader";
+import { ClipLoader } from "react-spinners";
 import { firestore } from "../firebase";
 import "firebase/firestore";
 
@@ -59,7 +59,7 @@ export default class Policies extends Component {
     if (this.state.loading) {
       return (
         <Page name="Policies">
-          <ClipLoader color="#4338CA" loading={true}></ClipLoader>
+          <ClipLoader color="#4338CA" loading={true} />
         </Page>
       );
     }
@@ -67,7 +67,7 @@ export default class Policies extends Component {
     return (
       <>
         <Page name="Policies">
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+          {/* <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div className="flex-1 flex justify-between sm:hidden">
               <a
                 href="/"
@@ -152,7 +152,7 @@ export default class Policies extends Component {
                 </nav>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

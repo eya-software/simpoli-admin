@@ -24,6 +24,7 @@ export default function Navigation(props) {
     await logout();
     history.push("/login");
   }
+  console.log(currentUser);
 
   return (
     <div className="sticky top-0">
@@ -36,7 +37,7 @@ export default function Navigation(props) {
                   <div className="flex-shrink-0">
                     <img
                       className="h-8 w-8"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                      src={currentUser.photoURL ?? "https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"}
                       alt="Workflow"
                     />
                   </div>

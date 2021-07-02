@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "../index.css";
 import { useAuth } from "../contexts/AuthContext";
+import { auth } from "../firebase";
+import firebase from "firebase/app";
+import { FaMicrosoft } from "react-icons/fa";
+import { IconContext } from "react-icons";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
@@ -8,6 +12,21 @@ export default function Signin() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const provider = new firebase.auth.OAuthProvider("microsoft.com");
+
+  function handleSignInWithMicrosoft() {
+    setError("");
+    setLoading(true);
+    auth.signInWithPopup(provider)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(e => {
+        console.log(e);
+        setLoading(false);
+        setError("Failed to sign in.");
+      });
+  }
 
   function handleEmailChange(event) {
     setEmail(event.target.value);
@@ -26,7 +45,7 @@ export default function Signin() {
       await login(email, password);
     } catch (e) {
       console.log(e);
-      setError("Failed to sign in");
+      setError("Failed to sign in.");
     }
 
     setLoading(false);
@@ -47,13 +66,13 @@ export default function Signin() {
         </div>
         {error && (
           <div
-            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
             role="alert"
           >
-            <span class="block sm:inline">{error}</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <span className="block sm:inline">{error}</span>
+            <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
               <svg
-                class="fill-current h-6 w-6 text-red-500"
+                className="fill-current h-6 w-6 text-red-500"
                 role="button"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -137,6 +156,20 @@ export default function Signin() {
               Sign in
             </button>
           </div>
+          <div class="flex-parent">
+            <div class="flex-child-edge"></div>
+            <div class="flex-child-text">Or continue with</div>
+            <div class="flex-child-edge"></div>
+          </div>
+          <button
+            type="button"
+            className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-10 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+            onClick={handleSignInWithMicrosoft}
+          >
+            <IconContext.Provider value={{ color: "#6c7280", size: 20}}>
+              <FaMicrosoft />
+            </IconContext.Provider>
+          </button>
         </form>
       </div>
     </div>

@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.flex-parent {
+  display: flex;
+  width: auto;
+  height: 10px;
+  align-items: center;
+}
+
+.flex-child-edge {
+  flex-grow: 2;
+  height: 0px;
+  background-color: rgb(209, 213, 219);
+  border: 0.7px rgb(209, 213, 219) solid;
+  border-radius: 1px
+}
+.flex-child-text {
+  flex-basis: auto;
+  flex-grow: 0;
+  margin: 0px 5px 0px 5px;
+  text-align: center;
+  color: rgb(127, 133, 145);
+}
