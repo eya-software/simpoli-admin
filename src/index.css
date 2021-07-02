@@ -13,8 +13,10 @@
   flex-grow: 2;
   height: 0px;
   background-color: rgb(209, 213, 219);
-  border: 0.7px rgb(209, 213, 219) solid;
-  border-radius: 1px;
+  border: 0.5px rgb(209, 213, 219) solid;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 0.5px;
 }
 .flex-child-text {
   flex-basis: auto;

@@ -18,29 +18,26 @@ export function AuthProvider({ children }) {
   const provider = new firebase.auth.OAuthProvider("microsoft.com");
   const history = useHistory();
 
-  function loginWithMicrosoft() {
-    return auth.signInWithPopup(provider).then((res) => {
-      const credential = res.credential;
-      const accessToken = credential.accessToken;
-
-      const client = Client.initWithMiddleware({
-        authProvider: {
-          getAccessToken: () => Promise.resolve(accessToken),
-        },
-      });
-
-      client
-        .api("/me/photo/$value")
-        .get()
-        .then((res) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            setProfilePic(reader.result);
-          };
-          reader.readAsDataURL(res);
-        });
-      setLoading(false);
+  async function loginWithMicrosoft() {
+    const res = await auth.signInWithPopup(provider);
+    const credential = res.credential;
+    const accessToken = credential.accessToken;
+    const client = Client.initWithMiddleware({
+      authProvider: {
+        getAccessToken: () => Promise.resolve(accessToken),
+      },
     });
+    client
+      .api("/me/photo/$value")
+      .get()
+      .then((res_1) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setProfilePic(reader.result);
+        };
+        reader.readAsDataURL(res_1);
+      });
+    setLoading(false);
   }
 
   function signup(email, password) {
