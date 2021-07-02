@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "../index.css";
 import { useAuth } from "../contexts/AuthContext";
-import { auth } from "../firebase";
-import firebase from "firebase/app";
 import { FaMicrosoft } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -11,22 +9,17 @@ export default function Signin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
-  const provider = new firebase.auth.OAuthProvider("microsoft.com");
+  const { login, loginWithMicrosoft } = useAuth();
 
   function handleSignInWithMicrosoft() {
     setError("");
     setLoading(true);
-    auth
-      .signInWithPopup(provider)
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e);
-        setLoading(false);
-        setError("Failed to sign in.");
-      });
+    loginWithMicrosoft().catch((e) => {
+      console.log(e);
+      setLoading(false);
+      setError("Failed to sign in.");
+      return;
+    });
   }
 
   function handleEmailChange(event) {

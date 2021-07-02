@@ -1,6 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../firebase";
+import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
+import { Client } from "@microsoft/microsoft-graph-client";
+
 
 export const AuthContext = React.createContext();
 
@@ -9,9 +12,34 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  // TODO: make profile pic work without sign in
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [profilePic, setProfilePic] = useState();
+  const provider = new firebase.auth.OAuthProvider("microsoft.com");
   const history = useHistory();
+
+  function loginWithMicrosoft() {
+    return auth.signInWithPopup(provider).then((res) => {
+      const credential = res.credential;
+      const accessToken = credential.accessToken;
+
+      const client = Client.initWithMiddleware({
+        authProvider: {
+            getAccessToken: () => Promise.resolve(accessToken)
+        }
+      });
+
+      client.api('/me/photo/$value').get().then((res) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setProfilePic(reader.result);
+        };
+        reader.readAsDataURL(res);
+      });
+      setLoading(false);
+    })
+  }
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -41,7 +69,9 @@ export function AuthProvider({ children }) {
     currentUser,
     signup,
     login,
+    loginWithMicrosoft,
     logout,
+    profilePic,
   };
 
   return (
