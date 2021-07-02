@@ -45,7 +45,7 @@ export default function Navigation(props) {
                           <Fragment key={item}>
                             <button
                               onClick={() => history.push(routes[item])}
-                              className="h-full inline-flex items-center px-3 py-2 border-b-2 border-transparent text-base font-medium leading-6 text-black border-indigo-600 dark:text-dark-high-emphasis transition"
+                              className="h-full inline-flex items-center px-3 py-2 border-b-2 border-transparent text-base font-medium leading-6 text-black border-yellow-600 dark:text-dark-high-emphasis transition"
                             >
                               {item}
                             </button>
@@ -151,7 +151,7 @@ export default function Navigation(props) {
                       {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                       <button
                         onclick={() => history.push(routes[item])}
-                        className="w-full text-left block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 dark:text-indigo-100 bg-indigo-50 dark:bg-indigo-800 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition"
+                        className="w-full text-left block pl-3 pr-4 py-2 border-l-4 border-yellow-500 text-base font-medium text-yellow-700 dark:text-yellow-100 bg-yellow-50 dark:bg-yellow-800 focus:outline-none focus:text-yellow-800 focus:bg-yellow-100 focus:border-yellow-700 transition"
                       >
                         {item}
                       </button>

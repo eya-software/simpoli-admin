@@ -105,7 +105,7 @@ export default class Policies extends Component {
                   <a
                     href="/"
                     aria-current="page"
-                    className="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                    className="z-10 bg-yellow-50 border-yellow-500 text-yellow-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                   >
                     1
                   </a>
@@ -234,7 +234,7 @@ export default class Policies extends Component {
                               }}
                             >
                               <ArchiveIcon
-                                className="h-6 w-6 mr-4 text-indigo-600"
+                                className="h-6 w-6 mr-4 text-yellow-600"
                                 aria-hidden="true"
                               />
                             </button>

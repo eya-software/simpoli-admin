@@ -132,7 +132,7 @@ export default function Create() {
                     name="first_name"
                     id="first_name"
                     autoComplete="given-name"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     value={firstName}
                     onChange={(event) => setFirstName(event.target.value)}
                   />
@@ -150,7 +150,7 @@ export default function Create() {
                     name="last_name"
                     id="last_name"
                     autoComplete="family-name"
-                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    className="mt-1 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     value={lastName}
                     onChange={(event) => setLastName(event.target.value)}
                   />
@@ -178,7 +178,7 @@ export default function Create() {
                       type="text"
                       name="article_title"
                       id="article_title"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="mt-1 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       value={title}
                       onChange={(event) => setTitle(event.target.value)}
                     />
@@ -199,7 +199,7 @@ export default function Create() {
                         type="url"
                         name="image_link"
                         id="image_link"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="focus:ring-yellow-500 focus:border-yellow-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
                         value={image}
                         onChange={(event) => setImage(event.target.value)}
@@ -222,7 +222,7 @@ export default function Create() {
                         type="url"
                         name="portrait_image_link"
                         id="portrait_image_link"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="focus:ring-yellow-500 focus:border-yellow-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
                         value={portraitImage}
                         onChange={(event) =>
@@ -247,7 +247,7 @@ export default function Create() {
                         type="url"
                         name="video_link"
                         id="video_link"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="focus:ring-yellow-500 focus:border-yellow-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.youtube.com/watch?v=example"
                         value={video}
                         onChange={(event) => setVideo(event.target.value)}
@@ -267,7 +267,7 @@ export default function Create() {
                         id="description"
                         name="description"
                         rows={15}
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         value={description}
                         onChange={(event) => setDescription(event.target.value)}
                       />
@@ -289,7 +289,7 @@ export default function Create() {
                       required
                       name="article_title"
                       id="article_title"
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="mt-1 focus:ring-yellow-500 focus:border-yellow-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       value={title1}
                       onChange={(event) => setTitle1(event.target.value)}
                     />
@@ -310,7 +310,7 @@ export default function Create() {
                         type="url"
                         name="image_link"
                         id="image_link"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="focus:ring-yellow-500 focus:border-yellow-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
                         value={image1}
                         onChange={(event) => setImage1(event.target.value)}
@@ -333,7 +333,7 @@ export default function Create() {
                         type="url"
                         name="portrait_image_link"
                         id="portrait_image_link"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="focus:ring-yellow-500 focus:border-yellow-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
                         value={portraitImage1}
                         onChange={(event) =>
@@ -358,7 +358,7 @@ export default function Create() {
                         type="url"
                         name="video_link"
                         id="video_link"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        className="focus:ring-yellow-500 focus:border-yellow-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.youtube.com/watch?v=example"
                         value={video1}
                         onChange={(event) => setVideo1(event.target.value)}
@@ -378,7 +378,7 @@ export default function Create() {
                         id="description"
                         name="description"
                         rows={15}
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         value={description1}
                         onChange={(event) =>
                           setDescription1(event.target.value)
@@ -421,7 +421,7 @@ export default function Create() {
 
               <button
                 onClick={() => setDialogOpen(true)}
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
               >
                 Post
               </button>
