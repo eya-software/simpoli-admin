@@ -121,7 +121,10 @@ export default function Create() {
             <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
-                  <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="first_name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     First name
                   </label>
                   <input
@@ -136,7 +139,10 @@ export default function Create() {
                 </div>
 
                 <div className="col-span-6 sm:col-span-3">
-                  <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="last_name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Last name
                   </label>
                   <input
@@ -152,9 +158,7 @@ export default function Create() {
               </div>
 
               <div>
-              <label
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Article Type
                 </label>
                 <ButtonGroup
@@ -167,9 +171,7 @@ export default function Create() {
               {articleType === "Policy" && (
                 <>
                   <div>
-                    <label
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label className="block text-sm font-medium text-gray-700">
                       Policy Title
                     </label>
                     <input
@@ -223,7 +225,9 @@ export default function Create() {
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
                         value={portraitImage}
-                        onChange={(event) => setPortraitImage(event.target.value)}
+                        onChange={(event) =>
+                          setPortraitImage(event.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -332,7 +336,9 @@ export default function Create() {
                         className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                         placeholder="www.example.com/picture.png"
                         value={portraitImage1}
-                        onChange={(event) => setPortraitImage1(event.target.value)}
+                        onChange={(event) =>
+                          setPortraitImage1(event.target.value)
+                        }
                       />
                     </div>
                   </div>
