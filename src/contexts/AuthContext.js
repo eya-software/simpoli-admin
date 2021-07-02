@@ -4,7 +4,6 @@ import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import { Client } from "@microsoft/microsoft-graph-client";
 
-
 export const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -26,19 +25,22 @@ export function AuthProvider({ children }) {
 
       const client = Client.initWithMiddleware({
         authProvider: {
-            getAccessToken: () => Promise.resolve(accessToken)
-        }
+          getAccessToken: () => Promise.resolve(accessToken),
+        },
       });
 
-      client.api('/me/photo/$value').get().then((res) => {
-        const reader = new FileReader();
-        reader.onload = () => {
+      client
+        .api("/me/photo/$value")
+        .get()
+        .then((res) => {
+          const reader = new FileReader();
+          reader.onload = () => {
             setProfilePic(reader.result);
-        };
-        reader.readAsDataURL(res);
-      });
+          };
+          reader.readAsDataURL(res);
+        });
       setLoading(false);
-    })
+    });
   }
 
   function signup(email, password) {
