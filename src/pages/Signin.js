@@ -17,11 +17,12 @@ export default function Signin() {
   function handleSignInWithMicrosoft() {
     setError("");
     setLoading(true);
-    auth.signInWithPopup(provider)
+    auth
+      .signInWithPopup(provider)
       .then(() => {
         setLoading(false);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         setLoading(false);
         setError("Failed to sign in.");
@@ -166,7 +167,7 @@ export default function Signin() {
             className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-10 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
             onClick={handleSignInWithMicrosoft}
           >
-            <IconContext.Provider value={{ color: "#6c7280", size: 20}}>
+            <IconContext.Provider value={{ color: "#6c7280", size: 20 }}>
               <FaMicrosoft />
             </IconContext.Provider>
           </button>

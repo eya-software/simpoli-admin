@@ -14,7 +14,7 @@
   height: 0px;
   background-color: rgb(209, 213, 219);
   border: 0.7px rgb(209, 213, 219) solid;
-  border-radius: 1px
+  border-radius: 1px;
 }
 .flex-child-text {
   flex-basis: auto;
