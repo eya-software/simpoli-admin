@@ -50,11 +50,7 @@ export default function Signin() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <img
-            className="mx-auto h-12 w-auto"
-            src={logo}
-            alt="Simpoli Logo"
-          />
+          <img className="mx-auto h-12 w-auto" src={logo} alt="Simpoli Logo" />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in as Simpoli Admin
           </h2>
@@ -162,7 +158,7 @@ export default function Signin() {
               className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-12 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
               onClick={handleSignInWithMicrosoft}
             >
-                <IconContext.Provider value={{ color: "#6c7280", size: 20 }}>
+              <IconContext.Provider value={{ color: "#6c7280", size: 20 }}>
                 <FaMicrosoft />
               </IconContext.Provider>
             </button>

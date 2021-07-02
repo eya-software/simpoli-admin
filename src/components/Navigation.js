@@ -36,11 +36,7 @@ export default function Navigation(props) {
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center h-full">
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-9 w-9"
-                      src={logo}
-                      alt="Simpoli Logo"
-                    />
+                    <img className="h-9 w-9" src={logo} alt="Simpoli Logo" />
                   </div>
                   <div className="hidden md:block h-full">
                     <div className="ml-10 flex items-baseline space-x-4 h-full">
