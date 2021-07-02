@@ -103,10 +103,12 @@ export default function Create() {
   function clearFields() {
     setTitle("");
     setImage("");
+    setPortraitImage("");
     setVideo("");
     setDescription("");
     setTitle1("");
     setImage1("");
+    setPortraitImage("");
     setVideo1("");
     setDescription1("");
   }
