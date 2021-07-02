@@ -5,17 +5,21 @@ import Page from "./Page";
 import { firestore as db } from "../firebase";
 
 export default function Create() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [articleType, setArticleType] = useState("Policy");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
+  const [portraitImage, setPortraitImage] = useState("");
   const [video, setVideo] = useState("");
   const [description, setDescription] = useState("");
 
   const [title1, setTitle1] = useState("");
   const [image1, setImage1] = useState("");
+  const [portraitImage1, setPortraitImage1] = useState("");
   const [video1, setVideo1] = useState("");
   const [description1, setDescription1] = useState("");
   const today = new Date();
@@ -24,6 +28,13 @@ export default function Create() {
     let collectionRef;
     setError("");
     setSuccess("");
+
+    setFirstName(firstName.trim());
+    setLastName(lastName.trim());
+    if (!(firstName && lastName)) {
+      setError("You are missing some required fields.");
+      return;
+    }
 
     if (articleType === "Policy") {
       if (!(title && description && image)) {
@@ -37,8 +48,10 @@ export default function Create() {
       }
       try {
         await collectionRef.add({
+          author: firstName + " " + lastName,
           title: title,
           image: image,
+          portraitImage: portraitImage,
           video: video,
           description: description,
           date: today,
@@ -66,8 +79,10 @@ export default function Create() {
       }
       try {
         await collectionRef.add({
+          author: firstName + " " + lastName,
           title: title1,
           image: image1,
+          portraitImage: portraitImage1,
           video: video1,
           description: description1,
           date: today,
@@ -102,9 +117,40 @@ export default function Create() {
         <div>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+              <div className="grid grid-cols-6 gap-6">
+                <div className="col-span-6 sm:col-span-3">
+                  <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
+                    First name
+                  </label>
+                  <input
+                    type="text"
+                    name="first_name"
+                    id="first_name"
+                    autoComplete="given-name"
+                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                  />
+                </div>
+
+                <div className="col-span-6 sm:col-span-3">
+                  <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
+                    Last name
+                  </label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    id="last_name"
+                    autoComplete="family-name"
+                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
+                  />
+                </div>
+              </div>
+
               <div>
-                <label
-                  htmlFor="first_name"
+              <label
                   className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Article Type
@@ -120,7 +166,6 @@ export default function Create() {
                 <>
                   <div>
                     <label
-                      htmlFor="first_name"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Policy Title
@@ -154,6 +199,29 @@ export default function Create() {
                         placeholder="www.example.com/picture.png"
                         value={image}
                         onChange={(event) => setImage(event.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="company_website"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Portrait Image Link
+                    </label>
+                    <div className="mt-1 flex rounded-md shadow-sm">
+                      <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                        http://
+                      </span>
+                      <input
+                        type="url"
+                        name="portrait_image_link"
+                        id="portrait_image_link"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        placeholder="www.example.com/picture.png"
+                        value={portraitImage}
+                        onChange={(event) => setPortraitImage(event.target.value)}
                       />
                     </div>
                   </div>
@@ -240,6 +308,29 @@ export default function Create() {
                         placeholder="www.example.com/picture.png"
                         value={image1}
                         onChange={(event) => setImage1(event.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="company_website"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Portrait Image Link
+                    </label>
+                    <div className="mt-1 flex rounded-md shadow-sm">
+                      <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                        http://
+                      </span>
+                      <input
+                        type="url"
+                        name="portrait_image_link"
+                        id="portrait_image_link"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
+                        placeholder="www.example.com/picture.png"
+                        value={portraitImage1}
+                        onChange={(event) => setPortraitImage1(event.target.value)}
                       />
                     </div>
                   </div>
