@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import { Client } from "@microsoft/microsoft-graph-client";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 
 export const AuthContext = React.createContext();
 
@@ -12,7 +12,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [cookies, setCookie] = useCookies(['auth']);
+  const [cookies, setCookie] = useCookies(["auth"]);
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   const [reauthenticating, setReauthenticating] = useState(false);
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
 
     const expiration = new Date();
     expiration.setHours(expiration.getHours() + 1);
-    setCookie('token', credential.accessToken, { expires: expiration });
+    setCookie("token", credential.accessToken, { expires: expiration });
 
     await retrieveProfilePic(accessToken);
     setLoading(false);
@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
         getAccessToken: () => Promise.resolve(token),
       },
     });
-    const res = await client.api("/me/photo/$value").get()
+    const res = await client.api("/me/photo/$value").get();
     const reader = new FileReader();
     reader.onload = () => {
       setProfilePic(reader.result);
@@ -72,11 +72,11 @@ export function AuthProvider({ children }) {
           currentUser.reauthenticateWithPopup(provider).then((res) => {
             const credential = res.credential;
             const accessToken = credential.accessToken;
-  
+
             const expiration = new Date();
             expiration.setHours(expiration.getHours() + 1);
-            setCookie('token', credential.accessToken, { expires: expiration });
-  
+            setCookie("token", credential.accessToken, { expires: expiration });
+
             retrieveProfilePic(accessToken).then(() => setLoading(false));
           });
         }
@@ -85,7 +85,14 @@ export function AuthProvider({ children }) {
     });
 
     return unsubscribe;
-  }, [history, cookies.token, provider, setCookie, currentUser, reauthenticating]);
+  }, [
+    history,
+    cookies.token,
+    provider,
+    setCookie,
+    currentUser,
+    reauthenticating,
+  ]);
 
   const value = {
     currentUser,

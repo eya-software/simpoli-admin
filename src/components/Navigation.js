@@ -69,19 +69,21 @@ export default function Navigation(props) {
                     <Menu as="div" className="ml-3 relative">
                       {({ open }) => (
                         <>
-                          {!loading && <div>
-                            <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none">
-                              <span className="sr-only">Open user menu</span>
-                              <img
-                                className="h-9 w-9 rounded-full"
-                                src={
-                                  profilePic ??
-                                  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                }
-                                alt=""
-                              />
-                            </Menu.Button>
-                          </div>}
+                          {!loading && (
+                            <div>
+                              <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none">
+                                <span className="sr-only">Open user menu</span>
+                                <img
+                                  className="h-9 w-9 rounded-full"
+                                  src={
+                                    profilePic ??
+                                    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                  }
+                                  alt=""
+                                />
+                              </Menu.Button>
+                            </div>
+                          )}
                           <Transition
                             show={open}
                             as={Fragment}
