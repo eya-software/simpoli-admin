@@ -59,7 +59,7 @@ export default class Policies extends Component {
     if (this.state.loading) {
       return (
         <Page name="Policies">
-          <ClipLoader color="#4338CA" loading={true} />
+          <ClipLoader color="#d97706" loading={true} />
         </Page>
       );
     }

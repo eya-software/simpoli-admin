@@ -3,6 +3,7 @@ import { auth } from "../firebase";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
 import { Client } from "@microsoft/microsoft-graph-client";
+import { useCookies } from 'react-cookie';
 
 export const AuthContext = React.createContext();
 
@@ -11,10 +12,12 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  // TODO: make profile pic work without sign in
+  const [cookies, setCookie] = useCookies(['auth']);
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [reauthenticating, setReauthenticating] = useState(false);
   const [profilePic, setProfilePic] = useState();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const provider = new firebase.auth.OAuthProvider("microsoft.com");
   const history = useHistory();
 
@@ -22,22 +25,27 @@ export function AuthProvider({ children }) {
     const res = await auth.signInWithPopup(provider);
     const credential = res.credential;
     const accessToken = credential.accessToken;
+
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 1);
+    setCookie('token', credential.accessToken, { expires: expiration });
+
+    await retrieveProfilePic(accessToken);
+    setLoading(false);
+  }
+
+  async function retrieveProfilePic(token) {
     const client = Client.initWithMiddleware({
       authProvider: {
-        getAccessToken: () => Promise.resolve(accessToken),
+        getAccessToken: () => Promise.resolve(token),
       },
     });
-    client
-      .api("/me/photo/$value")
-      .get()
-      .then((res_1) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          setProfilePic(reader.result);
-        };
-        reader.readAsDataURL(res_1);
-      });
-    setLoading(false);
+    const res = await client.api("/me/photo/$value").get()
+    const reader = new FileReader();
+    reader.onload = () => {
+      setProfilePic(reader.result);
+    };
+    reader.readAsDataURL(res);
   }
 
   function signup(email, password) {
@@ -55,14 +63,29 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      setLoading(false);
       if (user != null) {
+        if (cookies.token) {
+          retrieveProfilePic(cookies.token).then(() => setLoading(false));
+        } else {
+          if (reauthenticating) return;
+          setReauthenticating(true);
+          currentUser.reauthenticateWithPopup(provider).then((res) => {
+            const credential = res.credential;
+            const accessToken = credential.accessToken;
+  
+            const expiration = new Date();
+            expiration.setHours(expiration.getHours() + 1);
+            setCookie('token', credential.accessToken, { expires: expiration });
+  
+            retrieveProfilePic(accessToken).then(() => setLoading(false));
+          });
+        }
         history.push("/");
       }
     });
 
     return unsubscribe;
-  }, [history]);
+  }, [history, cookies.token, provider, setCookie, currentUser, reauthenticating]);
 
   const value = {
     currentUser,

@@ -59,7 +59,7 @@ export default class News extends Component {
     if (this.state.loading) {
       return (
         <Page name="News">
-          <ClipLoader color="#4338CA" loading={true}></ClipLoader>
+          <ClipLoader color="#d97706" loading={true}></ClipLoader>
         </Page>
       );
     }

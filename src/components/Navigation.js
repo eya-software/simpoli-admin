@@ -18,7 +18,7 @@ function classNames(...classes) {
 }
 
 export default function Navigation(props) {
-  const { currentUser, logout, profilePic } = useAuth();
+  const { currentUser, loading, logout, profilePic } = useAuth();
   const history = useHistory();
 
   async function handleLogout() {
@@ -69,7 +69,7 @@ export default function Navigation(props) {
                     <Menu as="div" className="ml-3 relative">
                       {({ open }) => (
                         <>
-                          <div>
+                          {!loading && <div>
                             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none">
                               <span className="sr-only">Open user menu</span>
                               <img
@@ -81,7 +81,7 @@ export default function Navigation(props) {
                                 alt=""
                               />
                             </Menu.Button>
-                          </div>
+                          </div>}
                           <Transition
                             show={open}
                             as={Fragment}
