@@ -26,7 +26,6 @@ export default class Policies extends Component {
         let policy = doc.data();
         policy["id"] = doc.id;
         items.push(policy);
-        console.log(policy);
       });
       this.setState({
         loading: false,
@@ -185,7 +184,7 @@ export default class Policies extends Component {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {this.state.policies.map((policy) => (
-                        <tr>
+                        <tr key={policy.id}>
                           <td className="px-6 py-8 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="flex-shrink-0 h-10 w-10">

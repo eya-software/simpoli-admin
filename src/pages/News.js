@@ -26,7 +26,6 @@ export default class News extends Component {
         let story = doc.data();
         story["id"] = doc.id;
         items.push(story);
-        console.log(story);
       });
       this.setState({
         loading: false,
@@ -185,7 +184,7 @@ export default class News extends Component {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {this.state.stories.map((story) => (
-                        <tr>
+                        <tr key={story.id}>
                           <td className="px-6 py-8 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="flex-shrink-0 h-10 w-10">
