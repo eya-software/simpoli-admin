@@ -81,6 +81,8 @@ export function AuthProvider({ children }) {
           });
         }
         history.push("/");
+      } else {
+        setLoading(false);
       }
     });
 
