@@ -22,12 +22,7 @@ export function AuthProvider({ children }) {
   const history = useHistory();
 
   async function loginWithMicrosoft() {
-    const res = await auth.signInWithPopup(provider);
-    const accessToken = res.credential.accessToken;
-
-    createTokenCookie(accessToken);
-    await fetchProfilePic(accessToken);
-    setLoadingProfile(false);
+    await auth.signInWithRedirect(provider);
   }
 
   async function fetchProfilePic(token) {
@@ -44,11 +39,12 @@ export function AuthProvider({ children }) {
     reader.readAsDataURL(res);
   }
 
-  const createTokenCookie  = useCallback((token) => {
+  const createTokenCookie = useCallback((token) => {
     const expiration = new Date();
     expiration.setHours(expiration.getHours() + 1);
     setCookie("token", token, { expires: expiration });
-  }, [setCookie]);
+    cookies.token = token;
+  }, [setCookie, cookies]);
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -65,7 +61,14 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    auth.getRedirectResult().then((res) => {
+      if (res.credential) {
+        const accessToken = res.credential.accessToken;
+        createTokenCookie(accessToken);
+      }
+    });
+
+    auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
       if (user != null) {
@@ -84,8 +87,6 @@ export function AuthProvider({ children }) {
         history.push("/");
       }
     });
-
-    return unsubscribe;
   }, [
     history,
     cookies.token,

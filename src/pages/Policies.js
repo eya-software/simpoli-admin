@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Page from "./Page";
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
-import { ClipLoader } from "react-spinners";
+import { CircularProgress } from "@material-ui/core";
 import { firestore } from "../firebase";
 import "firebase/firestore";
 
@@ -58,7 +58,7 @@ export default class Policies extends Component {
     if (this.state.loading) {
       return (
         <Page name="Policies">
-          <ClipLoader color="#d97706" loading={true} />
+          <CircularProgress />
         </Page>
       );
     }

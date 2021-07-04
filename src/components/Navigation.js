@@ -4,6 +4,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import logo from "../assets/img/logo.png";
+import { CircularProgress } from "@material-ui/core";
 
 const navigation = ["Dashboard", "Policies", "News", "Create"];
 const routes = {
@@ -18,7 +19,7 @@ function classNames(...classes) {
 }
 
 export default function Navigation(props) {
-  const { currentUser, loading, logout, profilePic } = useAuth();
+  const { currentUser, loadingProfile, logout, profilePic } = useAuth();
   const history = useHistory();
 
   async function handleLogout() {
@@ -68,7 +69,9 @@ export default function Navigation(props) {
                     <Menu as="div" className="ml-3 relative">
                       {({ open }) => (
                         <>
-                          {!loading && (
+                          {loadingProfile ? 
+                          <CircularProgress size="2.25rem" />
+                          : (
                             <div>
                               <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none">
                                 <span className="sr-only">Open user menu</span>
