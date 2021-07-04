@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useCallback, useContext, useMemo, useState, useEffect } from "react";
 import { auth } from "../firebase";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
@@ -12,29 +12,25 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [cookies, setCookie] = useCookies(["auth"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["auth"]);
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [loadingProfile, setLoadingProfile] = useState(true);
   const [reauthenticating, setReauthenticating] = useState(false);
   const [profilePic, setProfilePic] = useState();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const provider = new firebase.auth.OAuthProvider("microsoft.com");
+  const provider = useMemo(() => new firebase.auth.OAuthProvider("microsoft.com"), []);
   const history = useHistory();
 
   async function loginWithMicrosoft() {
     const res = await auth.signInWithPopup(provider);
-    const credential = res.credential;
-    const accessToken = credential.accessToken;
+    const accessToken = res.credential.accessToken;
 
-    const expiration = new Date();
-    expiration.setHours(expiration.getHours() + 1);
-    setCookie("token", credential.accessToken, { expires: expiration });
-
-    await retrieveProfilePic(accessToken);
-    setLoading(false);
+    createTokenCookie(accessToken);
+    await fetchProfilePic(accessToken);
+    setLoadingProfile(false);
   }
 
-  async function retrieveProfilePic(token) {
+  async function fetchProfilePic(token) {
     const client = Client.initWithMiddleware({
       authProvider: {
         getAccessToken: () => Promise.resolve(token),
@@ -48,6 +44,12 @@ export function AuthProvider({ children }) {
     reader.readAsDataURL(res);
   }
 
+  const createTokenCookie  = useCallback((token) => {
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 1);
+    setCookie("token", token, { expires: expiration });
+  }, [setCookie]);
+
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
@@ -57,32 +59,29 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
+    removeCookie("token");
+    setProfilePic(null);
     return auth.signOut();
   }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      setLoading(false);
       if (user != null) {
         if (cookies.token) {
-          retrieveProfilePic(cookies.token).then(() => setLoading(false));
-        } else {
+          fetchProfilePic(cookies.token).then(() => setLoadingProfile(false));
+        } else if (user.providerData[0].providerId === "microsoft.com") {
           if (reauthenticating) return;
           setReauthenticating(true);
           currentUser.reauthenticateWithPopup(provider).then((res) => {
-            const credential = res.credential;
-            const accessToken = credential.accessToken;
+            const accessToken = res.credential.accessToken;
 
-            const expiration = new Date();
-            expiration.setHours(expiration.getHours() + 1);
-            setCookie("token", credential.accessToken, { expires: expiration });
-
-            retrieveProfilePic(accessToken).then(() => setLoading(false));
+            createTokenCookie(accessToken);
+            fetchProfilePic(accessToken).then(() => setLoadingProfile(false));
           });
         }
         history.push("/");
-      } else {
-        setLoading(false);
       }
     });
 
@@ -90,6 +89,7 @@ export function AuthProvider({ children }) {
   }, [
     history,
     cookies.token,
+    createTokenCookie,
     provider,
     setCookie,
     currentUser,
@@ -99,6 +99,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     signup,
+    loadingProfile,
     login,
     loginWithMicrosoft,
     logout,

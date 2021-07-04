@@ -25,7 +25,6 @@ export default function Navigation(props) {
     await logout();
     history.push("/login");
   }
-  console.log(currentUser);
 
   return (
     <div className="sticky top-0">
