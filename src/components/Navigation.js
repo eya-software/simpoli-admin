@@ -4,7 +4,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import logo from "../assets/img/logo.png";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Divider } from "@material-ui/core";
 
 const navigation = ["Dashboard", "Policies", "News", "Create"];
 const routes = {
@@ -100,19 +100,19 @@ export default function Navigation(props) {
                               static
                               className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             >
-                              <Menu.Item key="Your Profile">
-                                {({ active }) => (
-                                  <a
-                                    href="/"
-                                    className={classNames(
-                                      active ? "bg-gray-100" : "",
-                                      "block px-4 py-2 text-sm text-gray-700"
-                                    )}
-                                  >
-                                    Your Profile
-                                  </a>
-                                )}
-                              </Menu.Item>
+                              <>
+                                <span
+                                  className="block px-4 pt-2 text-base font-medium leading-none text-gray-800"
+                                >
+                                  {currentUser.displayName}
+                                </span>
+                                <span
+                                  className="block px-4 pb-2 text-sm text-gray-400"
+                                >
+                                  {currentUser.email}
+                                </span>
+                              </>
+                              <Divider className="my-2" />
                               <Menu.Item key="Sign Out">
                                 {({ active }) => (
                                   <button
@@ -176,13 +176,16 @@ export default function Navigation(props) {
                   <div className="flex-shrink-0">
                     <img
                       className="h-10 w-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={
+                        profilePic ??
+                        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      }
                       alt=""
                     />
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-gray-800">
-                      First Last
+                      {currentUser.displayName}
                     </div>
                     <div className="text-sm font-medium leading-none text-gray-400">
                       {currentUser.email}

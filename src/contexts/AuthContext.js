@@ -22,7 +22,6 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
-  const [reauthenticating, setReauthenticating] = useState(false);
   const [profilePic, setProfilePic] = useState();
   const provider = useMemo(
     () => new firebase.auth.OAuthProvider("microsoft.com"),
@@ -87,14 +86,7 @@ export function AuthProvider({ children }) {
         if (cookies.token) {
           fetchProfilePic(cookies.token).then(() => setLoadingProfile(false));
         } else if (user.providerData[0].providerId === "microsoft.com") {
-          if (reauthenticating) return;
-          setReauthenticating(true);
-          currentUser.reauthenticateWithPopup(provider).then((res) => {
-            const accessToken = res.credential.accessToken;
-
-            createTokenCookie(accessToken);
-            fetchProfilePic(accessToken).then(() => setLoadingProfile(false));
-          });
+          currentUser.reauthenticateWithRedirect(provider);
         }
         history.push("/");
       }
@@ -106,7 +98,6 @@ export function AuthProvider({ children }) {
     provider,
     setCookie,
     currentUser,
-    reauthenticating,
   ]);
 
   const value = {
