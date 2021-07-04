@@ -101,14 +101,10 @@ export default function Navigation(props) {
                               className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             >
                               <>
-                                <span
-                                  className="block px-4 pt-2 text-base font-medium leading-none text-gray-800"
-                                >
+                                <span className="block px-4 pt-2 text-base font-medium leading-none text-gray-800">
                                   {currentUser.displayName}
                                 </span>
-                                <span
-                                  className="block px-4 pb-2 text-sm text-gray-400"
-                                >
+                                <span className="block px-4 pb-2 text-sm text-gray-400">
                                   {currentUser.email}
                                 </span>
                               </>
