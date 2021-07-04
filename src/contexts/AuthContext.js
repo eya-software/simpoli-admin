@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useMemo, useState, useEffect } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
 import { auth } from "../firebase";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
@@ -18,7 +24,10 @@ export function AuthProvider({ children }) {
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [reauthenticating, setReauthenticating] = useState(false);
   const [profilePic, setProfilePic] = useState();
-  const provider = useMemo(() => new firebase.auth.OAuthProvider("microsoft.com"), []);
+  const provider = useMemo(
+    () => new firebase.auth.OAuthProvider("microsoft.com"),
+    []
+  );
   const history = useHistory();
 
   async function loginWithMicrosoft() {
@@ -44,11 +53,14 @@ export function AuthProvider({ children }) {
     reader.readAsDataURL(res);
   }
 
-  const createTokenCookie  = useCallback((token) => {
-    const expiration = new Date();
-    expiration.setHours(expiration.getHours() + 1);
-    setCookie("token", token, { expires: expiration });
-  }, [setCookie]);
+  const createTokenCookie = useCallback(
+    (token) => {
+      const expiration = new Date();
+      expiration.setHours(expiration.getHours() + 1);
+      setCookie("token", token, { expires: expiration });
+    },
+    [setCookie]
+  );
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
