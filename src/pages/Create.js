@@ -403,7 +403,7 @@ export default function Create() {
                     >
                       Brief Description
                       <span className="text-gray-400 font-normal">
-                        {" (" + miniDescription.length + "/200 characters)"}
+                        {" (" + miniDescription1.length + "/200 characters)"}
                       </span>
                     </label>
                     <div className="mt-1">
