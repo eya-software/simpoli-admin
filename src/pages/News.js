@@ -203,9 +203,9 @@ export default class News extends Component {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {story.description.length > 40
-                                ? story.description.substr(0, 40) + "..."
-                                : story.description}
+                              {story.miniDescription.length > 40
+                                ? story.miniDescription.substr(0, 40) + "..."
+                                : story.miniDescription}
                             </div>
                           </td>
                           {story.status === 0 && (

@@ -16,12 +16,14 @@ export default function Create() {
   const [portraitImage, setPortraitImage] = useState("");
   const [video, setVideo] = useState("");
   const [description, setDescription] = useState("");
+  const [miniDescription, setMiniDescription] = useState("");
 
   const [title1, setTitle1] = useState("");
   const [image1, setImage1] = useState("");
   const [portraitImage1, setPortraitImage1] = useState("");
   const [video1, setVideo1] = useState("");
   const [description1, setDescription1] = useState("");
+  const [miniDescription1, setMiniDescription1] = useState("");
   const today = new Date();
 
   async function createPost() {
@@ -37,7 +39,7 @@ export default function Create() {
     }
 
     if (articleType === "Policy") {
-      if (!(title && description && image)) {
+      if (!(title && miniDescription && description && image)) {
         setError("You are missing some required fields.");
         return;
       }
@@ -53,6 +55,7 @@ export default function Create() {
           image: image,
           portraitImage: portraitImage,
           video: video,
+          miniDescription: miniDescription,
           description: description,
           date: today,
           status: 1,
@@ -68,7 +71,7 @@ export default function Create() {
         return;
       }
     } else {
-      if (!(title1 && description1 && image1)) {
+      if (!(title1 && miniDescription1 && description1 && image1)) {
         setError("You are missing some required fields.");
         return;
       }
@@ -84,6 +87,7 @@ export default function Create() {
           image: image1,
           portraitImage: portraitImage1,
           video: video1,
+          miniDescription: miniDescription1,
           description: description1,
           date: today,
           status: 1,
@@ -105,11 +109,13 @@ export default function Create() {
     setImage("");
     setPortraitImage("");
     setVideo("");
+    setMiniDescription("");
     setDescription("");
     setTitle1("");
     setImage1("");
     setPortraitImage("");
     setVideo1("");
+    setMiniDescription("");
     setDescription1("");
   }
 
@@ -234,7 +240,7 @@ export default function Create() {
 
                   <div>
                     <label
-                      htmlFor="company_website"
+                      htmlFor="video_link"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Video Link
@@ -251,6 +257,30 @@ export default function Create() {
                         placeholder="www.youtube.com/watch?v=example"
                         value={video}
                         onChange={(event) => setVideo(event.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="about"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Brief Description
+                      <span className="text-gray-400 font-normal">
+                        {" (" + miniDescription.length + "/200 characters)"}
+                      </span>
+                    </label>
+                    <div className="mt-1">
+                      <textarea
+                        id="miniDescription"
+                        name="miniDescription"
+                        rows={2}
+                        className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        value={miniDescription}
+                        onChange={(event) => {
+                          setMiniDescription(event.target.value.substring(0, 200));
+                        }}
                       />
                     </div>
                   </div>
@@ -320,7 +350,7 @@ export default function Create() {
 
                   <div>
                     <label
-                      htmlFor="company_website"
+                      htmlFor="portrait_image_link"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Portrait Image Link
@@ -362,6 +392,30 @@ export default function Create() {
                         placeholder="www.youtube.com/watch?v=example"
                         value={video1}
                         onChange={(event) => setVideo1(event.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="about"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Brief Description
+                      <span className="text-gray-400 font-normal">
+                        {" (" + miniDescription.length + "/200 characters)"}
+                      </span>
+                    </label>
+                    <div className="mt-1">
+                      <textarea
+                        id="miniDescription"
+                        name="miniDescription"
+                        rows={2}
+                        className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                        value={miniDescription1}
+                        onChange={(event) => {
+                          setMiniDescription1(event.target.value.substring(0, 200));
+                        }}
                       />
                     </div>
                   </div>
