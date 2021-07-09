@@ -279,7 +279,9 @@ export default function Create() {
                         className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         value={miniDescription}
                         onChange={(event) => {
-                          setMiniDescription(event.target.value.substring(0, 200));
+                          setMiniDescription(
+                            event.target.value.substring(0, 200)
+                          );
                         }}
                       />
                     </div>
@@ -414,7 +416,9 @@ export default function Create() {
                         className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                         value={miniDescription1}
                         onChange={(event) => {
-                          setMiniDescription1(event.target.value.substring(0, 200));
+                          setMiniDescription1(
+                            event.target.value.substring(0, 200)
+                          );
                         }}
                       />
                     </div>
