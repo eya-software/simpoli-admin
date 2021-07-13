@@ -60,8 +60,8 @@ export default class News extends Component {
 
   openStoryModal(id) {
     const story = this.state.stories.find((cur) => cur.id === id);
-    this.setState({currStory: story});
-    this.setState({modalOpen: true});
+    this.setState({ currStory: story });
+    this.setState({ modalOpen: true });
   }
 
   render() {
@@ -196,7 +196,10 @@ export default class News extends Component {
                       {this.state.stories.map((story) => (
                         <tr key={story.id}>
                           <td className="px-6 py-5 whitespace-nowrap">
-                            <div className="flex items-center cursor-pointer" onClick={() => this.openStoryModal(story.id)}>
+                            <div
+                              className="flex items-center cursor-pointer"
+                              onClick={() => this.openStoryModal(story.id)}
+                            >
                               <div className="flex-shrink-0 h-10 w-10">
                                 <img
                                   className="h-10 w-10 rounded-full"
@@ -267,18 +270,22 @@ export default class News extends Component {
         </Page>
         <InfoModal
           isOpen={this.state.modalOpen}
-          setOpen={(isOpen) => this.setState({modalOpen: isOpen})}
+          setOpen={(isOpen) => this.setState({ modalOpen: isOpen })}
           title={this.state.currStory?.title}
         >
-          <p className="text-gray-500">{"By " + this.state.currStory?.author}, {
-            (this.state.currStory?.date?.getMonth() + 1) +
-            "/" +
-            this.state.currStory?.date?.getDate() +
-            "/" +
-            this.state.currStory?.date?.getFullYear()
-          }</p>
-          <p className="text-black mt-2 mb-2">{this.state.currStory?.description}</p>
-          <img src={this.state.currStory?.image} alt="Story"/>
+          <p className="text-gray-500">
+            {"By " + this.state.currStory?.author},{" "}
+            {this.state.currStory?.date?.getMonth() +
+              1 +
+              "/" +
+              this.state.currStory?.date?.getDate() +
+              "/" +
+              this.state.currStory?.date?.getFullYear()}
+          </p>
+          <p className="text-black mt-2 mb-2">
+            {this.state.currStory?.description}
+          </p>
+          <img src={this.state.currStory?.image} alt="Story" />
         </InfoModal>
       </>
     );

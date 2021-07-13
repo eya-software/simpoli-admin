@@ -8,9 +8,7 @@ export default function InfoModal(props) {
       show={props.isOpen}
       className="fixed z-30 inset-0 h-full overflow-y-auto"
     >
-      <div
-        className="flex items-end justify-center min-h-full pt-4 px-4 pb-12 text-center sm:block"
-      >
+      <div className="flex items-end justify-center min-h-full pt-4 px-4 pb-12 text-center sm:block">
         <Transition.Child
           className="fixed inset-0 transition-opacity"
           enter="ease-out duration-300"
@@ -68,7 +66,9 @@ export default function InfoModal(props) {
               </button>
             </div>
 
-            <h className="text-lg leading-6 font-medium text-gray-900 p-0">{props.title}</h>
+            <h className="text-lg leading-6 font-medium text-gray-900 p-0">
+              {props.title}
+            </h>
             {props.children}
           </div>
         </Transition.Child>
