@@ -1,6 +1,4 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 
 export default function InfoModal(props) {
   return (
