@@ -65,10 +65,10 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
-  function logout() {
+  async function logout() {
+    await auth.signOut();
     removeCookie("token");
     setProfilePic(null);
-    return auth.signOut();
   }
 
   useEffect(() => {
@@ -87,6 +87,8 @@ export function AuthProvider({ children }) {
           fetchProfilePic(cookies.token).then(() => setLoadingProfile(false));
         } else if (user.providerData[0].providerId === "microsoft.com") {
           currentUser.reauthenticateWithRedirect(provider);
+        } else {
+          setLoadingProfile(false);
         }
         history.push("/");
       }

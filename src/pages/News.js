@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Page from "./Page";
+import InfoModal from "../components/InfoModal";
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
 import { CircularProgress } from "@material-ui/core";
@@ -13,6 +14,8 @@ export default class News extends Component {
     this.state = {
       loading: false,
       stories: [],
+      currStory: null,
+      modalOpen: false,
     };
   }
 
@@ -25,6 +28,7 @@ export default class News extends Component {
       querySnapshot.forEach((doc) => {
         let story = doc.data();
         story["id"] = doc.id;
+        story["date"] = story.date.toDate();
         items.push(story);
       });
       this.setState({
@@ -52,6 +56,12 @@ export default class News extends Component {
 
   componentDidMount() {
     this.getStories();
+  }
+
+  openStoryModal(id) {
+    const story = this.state.stories.find((cur) => cur.id === id);
+    this.setState({currStory: story});
+    this.setState({modalOpen: true});
   }
 
   render() {
@@ -163,13 +173,13 @@ export default class News extends Component {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Article Title
+                          Story Title
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
-                          Article Description
+                          Story Description
                         </th>
                         <th
                           scope="col"
@@ -185,8 +195,8 @@ export default class News extends Component {
                     <tbody className="bg-white divide-y divide-gray-200">
                       {this.state.stories.map((story) => (
                         <tr key={story.id}>
-                          <td className="px-6 py-8 whitespace-nowrap">
-                            <div className="flex items-center">
+                          <td className="px-6 py-5 whitespace-nowrap">
+                            <div className="flex items-center cursor-pointer" onClick={() => this.openStoryModal(story.id)}>
                               <div className="flex-shrink-0 h-10 w-10">
                                 <img
                                   className="h-10 w-10 rounded-full"
@@ -255,6 +265,21 @@ export default class News extends Component {
             </div>
           </div>
         </Page>
+        <InfoModal
+          isOpen={this.state.modalOpen}
+          setOpen={(isOpen) => this.setState({modalOpen: isOpen})}
+          title={this.state.currStory?.title}
+        >
+          <p className="text-gray-500">{"By " + this.state.currStory?.author}, {
+            (this.state.currStory?.date?.getMonth() + 1) +
+            "/" +
+            this.state.currStory?.date?.getDate() +
+            "/" +
+            this.state.currStory?.date?.getFullYear()
+          }</p>
+          <p className="text-black mt-2 mb-2">{this.state.currStory?.description}</p>
+          <img src={this.state.currStory?.image} alt="Story"/>
+        </InfoModal>
       </>
     );
   }

@@ -24,7 +24,6 @@ export default function Navigation(props) {
 
   async function handleLogout() {
     await logout();
-    history.push("/login");
   }
 
   return (
@@ -98,7 +97,7 @@ export default function Navigation(props) {
                           >
                             <Menu.Items
                               static
-                              className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                              className="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             >
                               <>
                                 <span className="block px-4 pt-2 text-base font-medium leading-none text-gray-800">

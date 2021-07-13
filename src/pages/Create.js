@@ -3,10 +3,12 @@ import AlertDialog from "../components/AlertDialog";
 import ButtonGroup from "../components/ButtonGroup";
 import Page from "./Page";
 import { firestore as db } from "../firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Create() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const { currentUser } = useAuth();
+  const [firstName, setFirstName] = useState(currentUser.displayName ? currentUser.displayName.split(", ")[1].slice(0, -4) : "");
+  const [lastName, setLastName] = useState(currentUser.displayName ? currentUser.displayName.split(", ")[0] : "");
   const [articleType, setArticleType] = useState("Policy");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [error, setError] = useState("");
@@ -25,6 +27,11 @@ export default function Create() {
   const [description1, setDescription1] = useState("");
   const [miniDescription1, setMiniDescription1] = useState("");
   const today = new Date();
+
+  // if (currentUser.displayName) {
+  //   setFirstName(currentUser.displayName.split(", ")[1].slice(0, -4))
+  //   setLastName(currentUser.displayName.split(", ")[0]);
+  // }
 
   async function createPost() {
     let collectionRef;

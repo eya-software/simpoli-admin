@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Page from "./Page";
+import InfoModal from "../components/InfoModal";
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
 import { CircularProgress } from "@material-ui/core";
@@ -13,6 +14,8 @@ export default class Policies extends Component {
     this.state = {
       loading: false,
       policies: [],
+      currPolicy: null,
+      modalOpen: false,
     };
   }
 
@@ -25,6 +28,7 @@ export default class Policies extends Component {
       querySnapshot.forEach((doc) => {
         let policy = doc.data();
         policy["id"] = doc.id;
+        policy["date"] = policy.date.toDate();
         items.push(policy);
       });
       this.setState({
@@ -52,6 +56,12 @@ export default class Policies extends Component {
 
   componentDidMount() {
     this.getPolicies();
+  }
+
+  openPolicyModal(id) {
+    const policy = this.state.policies.find((cur) => cur.id === id);
+    this.setState({currPolicy: policy});
+    this.setState({modalOpen: true});
   }
 
   render() {
@@ -185,8 +195,8 @@ export default class Policies extends Component {
                     <tbody className="bg-white divide-y divide-gray-200">
                       {this.state.policies.map((policy) => (
                         <tr key={policy.id}>
-                          <td className="px-6 py-8 whitespace-nowrap">
-                            <div className="flex items-center">
+                          <td className="px-6 py-5 whitespace-nowrap">
+                            <div className="flex items-center cursor-pointer" onClick={() => this.openPolicyModal(policy.id)}>
                               <div className="flex-shrink-0 h-10 w-10">
                                 <img
                                   className="h-10 w-10 rounded-full"
@@ -258,6 +268,22 @@ export default class Policies extends Component {
             </div>
           </div>
         </Page>
+        <InfoModal
+          isOpen={this.state.modalOpen}
+          setOpen={(isOpen) => this.setState({modalOpen: isOpen})}
+          title={this.state.currPolicy?.title}
+        >
+          <p className="text-gray-500">{"By " + this.state.currPolicy?.author}, {
+            (this.state.currPolicy?.date?.getMonth() + 1) +
+            "/" +
+            this.state.currPolicy?.date?.getDate() +
+            "/" +
+            this.state.currPolicy?.date?.getFullYear()
+          }</p>
+          <p className="mt-2 mb-2">{this.state.currPolicy?.miniDescription}</p>
+          <p className="mt-2 mb-2">{this.state.currPolicy?.description}</p>
+          <img src={this.state.currPolicy?.image} alt="Story"/>
+        </InfoModal>
       </>
     );
   }
