@@ -285,7 +285,6 @@ export default class Policies extends Component {
               "/" +
               this.state.currPolicy?.date?.getFullYear()}
           </p>
-          <p className="mt-2 mb-2">{this.state.currPolicy?.miniDescription}</p>
           <p className="mt-2 mb-2">{this.state.currPolicy?.description}</p>
           <img src={this.state.currPolicy?.image} alt="Story" />
         </InfoModal>
