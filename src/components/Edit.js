@@ -14,7 +14,7 @@ export default function Create(props) {
   const [lastName, setLastName] = useState(
     currentUser.displayName ? currentUser.displayName.split(", ")[0] : ""
   );
-  const [dialogOpen, setDialogOpen] = useState( false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [title, setTitle] = useState(policy.title);
@@ -22,18 +22,20 @@ export default function Create(props) {
   const [portraitImage, setPortraitImage] = useState(policy.portraitImage);
   const [video, setVideo] = useState(policy.video);
   const [description, setDescription] = useState(policy.description);
-  const [miniDescription, setMiniDescription] = useState(policy.miniDescription);
+  const [miniDescription, setMiniDescription] = useState(
+    policy.miniDescription
+  );
 
   const [title1, setTitle1] = useState(policy.title);
   const [image1, setImage1] = useState(policy.image);
   const [portraitImage1, setPortraitImage1] = useState(policy.portraitImage);
   const [video1, setVideo1] = useState(policy.video);
   const [description1, setDescription1] = useState(policy.description);
-  const [miniDescription1, setMiniDescription1] = useState(policy.miniDescription);
+  const [miniDescription1, setMiniDescription1] = useState(
+    policy.miniDescription
+  );
   const today = new Date();
   const [type, setType] = useState();
-
-
 
   /*async function checkType() {
     let collectionRef2 = db.collection("policies").doc(policy.id);
@@ -52,22 +54,19 @@ export default function Create(props) {
 
   checkType();*/
 
-
-
   // if (currentUser.displayName) {
   //   setFirstName(currentUser.displayName.split(", ")[1].slice(0, -4))
   //   setLastName(currentUser.displayName.split(", ")[0]);
   // }
 
   async function getType() {
-    let ref = db.collection('policies').doc(policy.id);
+    let ref = db.collection("policies").doc(policy.id);
     const doc = await ref.get();
     if (doc.exists) {
       setType("Policy");
     } else {
       setType("News");
     }
-
   }
   async function createPost() {
     let collectionRef;
@@ -110,7 +109,7 @@ export default function Create(props) {
           title: title,
           image: image,
           portraitImage: portraitImage,
-          video: video, 
+          video: video,
           miniDescription: miniDescription,
           description: description,
           date: today,
@@ -177,8 +176,6 @@ export default function Create(props) {
 
   getType();
 
-
-
   return (
     <>
       <div>
@@ -221,7 +218,6 @@ export default function Create(props) {
                 />
               </div>
             </div>
-
 
             {type === "Policy" && (
               <>
@@ -280,9 +276,7 @@ export default function Create(props) {
                       className="focus:ring-yellow-500 focus:border-yellow-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                       placeholder="www.example.com/picture.png"
                       value={portraitImage}
-                      onChange={(event) =>
-                        setPortraitImage(event.target.value)
-                      }
+                      onChange={(event) => setPortraitImage(event.target.value)}
                     />
                   </div>
                 </div>
@@ -487,9 +481,7 @@ export default function Create(props) {
                       rows={15}
                       className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                       value={description1}
-                      onChange={(event) =>
-                        setDescription1(event.target.value)
-                      }
+                      onChange={(event) => setDescription1(event.target.value)}
                     />
                   </div>
                 </div>

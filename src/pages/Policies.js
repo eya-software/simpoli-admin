@@ -9,8 +9,7 @@ import Edit from "../components/Edit";
 
 import "firebase/firestore";
 
-export default class Policies extends Component { 
-
+export default class Policies extends Component {
   constructor(props) {
     super(props);
 
@@ -20,11 +19,10 @@ export default class Policies extends Component {
       loading: false,
       policies: [],
       currPolicy: null,
-      modalOpen: false, 
+      modalOpen: false,
       showEdit: false,
       editPolicy: null,
     };
-
   }
 
   getPolicies() {
@@ -74,16 +72,13 @@ export default class Policies extends Component {
 
   editPol(id) {
     const policy = this.state.policies.find((cur) => cur.id === id);
-    this.setState({ editPolicy: policy})
-    this.setState({ showEdit: true})
-
+    this.setState({ editPolicy: policy });
+    this.setState({ showEdit: true });
   }
 
   hideEdit() {
-    this.setState({ showEdit: false});
-
+    this.setState({ showEdit: false });
   }
-
 
   render() {
     if (this.state.loading) {
@@ -95,10 +90,10 @@ export default class Policies extends Component {
     }
 
     if (!this.state.showEdit) {
-    return ( 
-      <>
-        <Page name="Policies">
-          {/* <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      return (
+        <>
+          <Page name="Policies">
+            {/* <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div className="flex-1 flex justify-between sm:hidden">
               <a
                 href="/"
@@ -184,155 +179,154 @@ export default class Policies extends Component {
               </div>
             </div>
           </div> */}
-          <div className="flex flex-col">
-            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Policy Name
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Policy Description
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Status
-                        </th>
-                        <th scope="col" className="relative px-6 py-3">
-                          <span className="sr-only">Edit</span>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {this.state.policies.map((policy) => (
-                        <tr key={policy.id}>
-                          <td className="px-6 py-5 whitespace-nowrap">
-                            <div
-                              className="flex items-center cursor-pointer"
-                              onClick={() => this.openPolicyModal(policy.id)}
-                            >
-                              <div className="flex-shrink-0 h-10 w-10">
-                                <img
-                                  className="h-10 w-10 rounded-full"
-                                  src={policy.image}
-                                  alt=""
-                                />
-                              </div>
-                              <div className="ml-4">
-                                <div className="text-sm font-medium text-gray-900">
-                                  {policy.title}
+            <div className="flex flex-col">
+              <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                  <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Policy Name
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Policy Description
+                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            Status
+                          </th>
+                          <th scope="col" className="relative px-6 py-3">
+                            <span className="sr-only">Edit</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {this.state.policies.map((policy) => (
+                          <tr key={policy.id}>
+                            <td className="px-6 py-5 whitespace-nowrap">
+                              <div
+                                className="flex items-center cursor-pointer"
+                                onClick={() => this.openPolicyModal(policy.id)}
+                              >
+                                <div className="flex-shrink-0 h-10 w-10">
+                                  <img
+                                    className="h-10 w-10 rounded-full"
+                                    src={policy.image}
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="ml-4">
+                                  <div className="text-sm font-medium text-gray-900">
+                                    {policy.title}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {policy.miniDescription.length > 40
-                                ? policy.miniDescription.substr(0, 40) + "..."
-                                : policy.miniDescription}
-                            </div>
-                          </td>
-                          {policy.status === 0 && (
-                            <td className="px-5 py-4 whitespace-nowrap">
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                Archived
-                              </span>
                             </td>
-                          )}
-                          {policy.status === 1 && (
-                            <td className="px-5 py-4 whitespace-nowrap">
-                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Active
-                              </span>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">
+                                {policy.miniDescription.length > 40
+                                  ? policy.miniDescription.substr(0, 40) + "..."
+                                  : policy.miniDescription}
+                              </div>
                             </td>
-                          )}
-                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <button 
-                              className="focus:outline-none"
-                              aria-hidden="true"
-                              onClick={() => {
-                                this.editPol(policy.id)
-                              }} 
-                            >
-                              <PencilIcon className="h-6 w-6 mr-4 text-red-600" aria-hidden="true" />
-                            </button>
-                            <button
-                              className="focus:outline-none"
-                              onClick={() => {
-                                this.setPolicyStatus(
-                                  policy.id,
-                                  1 - policy.status
-                                );
-                              }}
-                            >
-                              <ArchiveIcon
-                                className="h-6 w-6 mr-4 text-yellow-600"
+                            {policy.status === 0 && (
+                              <td className="px-5 py-4 whitespace-nowrap">
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                  Archived
+                                </span>
+                              </td>
+                            )}
+                            {policy.status === 1 && (
+                              <td className="px-5 py-4 whitespace-nowrap">
+                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                  Active
+                                </span>
+                              </td>
+                            )}
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <button
+                                className="focus:outline-none"
                                 aria-hidden="true"
-                              />
-                            </button>
-                            <button
-                              className="focus:outline-none"
-                              onClick={() => {
-                                this.deletePolicy(policy.id);
-                              }}
-                            >
-                              <TrashIcon
-                                className="h-6 w-6 text-red-600"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                                onClick={() => {
+                                  this.editPol(policy.id);
+                                }}
+                              >
+                                <PencilIcon
+                                  className="h-6 w-6 mr-4 text-red-600"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="focus:outline-none"
+                                onClick={() => {
+                                  this.setPolicyStatus(
+                                    policy.id,
+                                    1 - policy.status
+                                  );
+                                }}
+                              >
+                                <ArchiveIcon
+                                  className="h-6 w-6 mr-4 text-yellow-600"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                              <button
+                                className="focus:outline-none"
+                                onClick={() => {
+                                  this.deletePolicy(policy.id);
+                                }}
+                              >
+                                <TrashIcon
+                                  className="h-6 w-6 text-red-600"
+                                  aria-hidden="true"
+                                />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Page>
-        <InfoModal
-          isOpen={this.state.modalOpen}
-          setOpen={(isOpen) => this.setState({ modalOpen: isOpen })}
-          title={this.state.currPolicy?.title}
-        >
-          <p className="text-gray-500">
-            {"By " + this.state.currPolicy?.author},{" "}
-            {this.state.currPolicy?.date?.getMonth() +
-              1 +
-              "/" +
-              this.state.currPolicy?.date?.getDate() +
-              "/" +
-              this.state.currPolicy?.date?.getFullYear()}
-          </p>
-          <p className="mt-2 mb-2">{this.state.currPolicy?.description}</p>
-          <img src={this.state.currPolicy?.image} alt="Story" />
-        </InfoModal>
-      </>
-    )} else {
+          </Page>
+          <InfoModal
+            isOpen={this.state.modalOpen}
+            setOpen={(isOpen) => this.setState({ modalOpen: isOpen })}
+            title={this.state.currPolicy?.title}
+          >
+            <p className="text-gray-500">
+              {"By " + this.state.currPolicy?.author},{" "}
+              {this.state.currPolicy?.date?.getMonth() +
+                1 +
+                "/" +
+                this.state.currPolicy?.date?.getDate() +
+                "/" +
+                this.state.currPolicy?.date?.getFullYear()}
+            </p>
+            <p className="mt-2 mb-2">{this.state.currPolicy?.description}</p>
+            <img src={this.state.currPolicy?.image} alt="Story" />
+          </InfoModal>
+        </>
+      );
+    } else {
       return (
         <>
           <Page name="Policies">
             <Edit policy={this.state.editPolicy} hideEdit={this.hideEdit} />
-
-
           </Page>
-
         </>
-
-
-      )
+      );
     }
   }
 }
