@@ -2,21 +2,29 @@ import React, { Component } from "react";
 import Page from "./Page";
 import InfoModal from "../components/InfoModal";
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
+import { ArchiveIcon, TrashIcon, PencilIcon } from "@heroicons/react/outline";
 import { CircularProgress } from "@material-ui/core";
 import { firestore } from "../firebase";
+import Edit from "../components/Edit";
+
 import "firebase/firestore";
 
-export default class Policies extends Component {
+export default class Policies extends Component { 
+
   constructor(props) {
     super(props);
+
+    this.hideEdit = this.hideEdit.bind(this);
 
     this.state = {
       loading: false,
       policies: [],
       currPolicy: null,
-      modalOpen: false,
+      modalOpen: false, 
+      showEdit: false,
+      editPolicy: null,
     };
+
   }
 
   getPolicies() {
@@ -64,6 +72,19 @@ export default class Policies extends Component {
     this.setState({ modalOpen: true });
   }
 
+  editPol(id) {
+    const policy = this.state.policies.find((cur) => cur.id === id);
+    this.setState({ editPolicy: policy})
+    this.setState({ showEdit: true})
+
+  }
+
+  hideEdit() {
+    this.setState({ showEdit: false});
+
+  }
+
+
   render() {
     if (this.state.loading) {
       return (
@@ -73,7 +94,8 @@ export default class Policies extends Component {
       );
     }
 
-    return (
+    if (!this.state.showEdit) {
+    return ( 
       <>
         <Page name="Policies">
           {/* <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
@@ -236,6 +258,15 @@ export default class Policies extends Component {
                             </td>
                           )}
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button 
+                              className="focus:outline-none"
+                              aria-hidden="true"
+                              onClick={() => {
+                                this.editPol(policy.id)
+                              }} 
+                            >
+                              <PencilIcon className="h-6 w-6 mr-4 text-red-600" aria-hidden="true" />
+                            </button>
                             <button
                               className="focus:outline-none"
                               onClick={() => {
@@ -289,6 +320,19 @@ export default class Policies extends Component {
           <img src={this.state.currPolicy?.image} alt="Story" />
         </InfoModal>
       </>
-    );
+    )} else {
+      return (
+        <>
+          <Page name="Policies">
+            <Edit policy={this.state.editPolicy} hideEdit={this.hideEdit} />
+
+
+          </Page>
+
+        </>
+
+
+      )
+    }
   }
 }

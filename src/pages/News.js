@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import Page from "./Page";
 import InfoModal from "../components/InfoModal";
 // import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import { ArchiveIcon, TrashIcon } from "@heroicons/react/outline";
+import { ArchiveIcon, TrashIcon, PencilIcon} from "@heroicons/react/outline";
 import { CircularProgress } from "@material-ui/core";
 import { firestore } from "../firebase";
 import "firebase/firestore";
+import Edit from "../components/Edit";
+
 
 export default class News extends Component {
   constructor(props) {
@@ -16,6 +18,8 @@ export default class News extends Component {
       stories: [],
       currStory: null,
       modalOpen: false,
+      editStory: null,
+      showEdit: false,
     };
   }
 
@@ -63,6 +67,12 @@ export default class News extends Component {
     this.setState({ currStory: story });
     this.setState({ modalOpen: true });
   }
+  editNews(id) {
+    const story = this.state.stories.find((cur) => cur.id === id);
+    this.setState({ editStory: story})
+    this.setState({ showEdit: true})
+
+  }
 
   render() {
     if (this.state.loading) {
@@ -72,7 +82,7 @@ export default class News extends Component {
         </Page>
       );
     }
-
+    if (!this.state.showEdit) {
     return (
       <>
         <Page name="News">
@@ -236,6 +246,11 @@ export default class News extends Component {
                             </td>
                           )}
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <button className="focus:outline-none" onClick={() => {
+                              this.editNews(story.id)
+                            }}>
+                              <PencilIcon className="h-6 w-6 mr-4 text-red-600" aria-hidden="true" />
+                            </button>
                             <button
                               className="focus:outline-none"
                               onClick={() => {
@@ -288,6 +303,17 @@ export default class News extends Component {
           <img src={this.state.currStory?.image} alt="Story" />
         </InfoModal>
       </>
-    );
+    )} else {
+      return (
+        <>
+          <Page name="News">
+            <Edit policy={this.state.editStory} hideEdit={this.hideEdit} />
+
+
+          </Page>
+
+        </>
+      )
+    }
   }
 }
