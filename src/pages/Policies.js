@@ -35,6 +35,7 @@ export default class Policies extends Component {
         let policy = doc.data();
         policy["id"] = doc.id;
         policy["date"] = policy.date.toDate();
+        policy["type"] = "policy";
         items.push(policy);
       });
       this.setState({
@@ -261,7 +262,7 @@ export default class Policies extends Component {
                                 }}
                               >
                                 <PencilIcon
-                                  className="h-6 w-6 mr-4 text-red-600"
+                                  className="h-6 w-6 mr-4 text-gray-400"
                                   aria-hidden="true"
                                 />
                               </button>
@@ -275,7 +276,7 @@ export default class Policies extends Component {
                                 }}
                               >
                                 <ArchiveIcon
-                                  className="h-6 w-6 mr-4 text-yellow-600"
+                                  className="h-6 w-6 mr-4 text-gray-400"
                                   aria-hidden="true"
                                 />
                               </button>
@@ -286,7 +287,7 @@ export default class Policies extends Component {
                                 }}
                               >
                                 <TrashIcon
-                                  className="h-6 w-6 text-red-600"
+                                  className="h-6 w-6 text-gray-400"
                                   aria-hidden="true"
                                 />
                               </button>
@@ -323,7 +324,7 @@ export default class Policies extends Component {
       return (
         <>
           <Page name="Policies">
-            <Edit policy={this.state.editPolicy} hideEdit={this.hideEdit} />
+            <Edit curr={this.state.editPolicy} onClose={() => this.setState({showEdit: false})}/>
           </Page>
         </>
       );

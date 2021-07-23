@@ -126,9 +126,9 @@ export default function Create() {
     setDescription("");
     setTitle1("");
     setImage1("");
-    setPortraitImage("");
+    setPortraitImage1("");
     setVideo1("");
-    setMiniDescription("");
+    setMiniDescription1("");
     setDescription1("");
   }
 

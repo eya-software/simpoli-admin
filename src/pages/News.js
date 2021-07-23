@@ -32,6 +32,7 @@ export default class News extends Component {
         let story = doc.data();
         story["id"] = doc.id;
         story["date"] = story.date.toDate();
+        story["type"] = "news";
         items.push(story);
       });
       this.setState({
@@ -251,7 +252,7 @@ export default class News extends Component {
                                 }}
                               >
                                 <PencilIcon
-                                  className="h-6 w-6 mr-4 text-red-600"
+                                  className="h-6 w-6 mr-4 text-gray-400"
                                   aria-hidden="true"
                                 />
                               </button>
@@ -265,7 +266,7 @@ export default class News extends Component {
                                 }}
                               >
                                 <ArchiveIcon
-                                  className="h-6 w-6 mr-4 text-yellow-600"
+                                  className="h-6 w-6 mr-4 text-gray-400"
                                   aria-hidden="true"
                                 />
                               </button>
@@ -276,7 +277,7 @@ export default class News extends Component {
                                 }}
                               >
                                 <TrashIcon
-                                  className="h-6 w-6 text-red-600"
+                                  className="h-6 w-6 text-gray-400"
                                   aria-hidden="true"
                                 />
                               </button>
@@ -315,7 +316,7 @@ export default class News extends Component {
       return (
         <>
           <Page name="News">
-            <Edit policy={this.state.editStory} hideEdit={this.hideEdit} />
+            <Edit curr={this.state.editStory} onClose={() => this.setState({showEdit: false})} />
           </Page>
         </>
       );
