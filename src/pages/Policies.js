@@ -324,7 +324,10 @@ export default class Policies extends Component {
       return (
         <>
           <Page name="Policies">
-            <Edit curr={this.state.editPolicy} onClose={() => this.setState({showEdit: false})}/>
+            <Edit
+              curr={this.state.editPolicy}
+              onClose={() => this.setState({ showEdit: false })}
+            />
           </Page>
         </>
       );
