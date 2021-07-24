@@ -316,7 +316,10 @@ export default class News extends Component {
       return (
         <>
           <Page name="News">
-            <Edit curr={this.state.editStory} onClose={() => this.setState({showEdit: false})} />
+            <Edit
+              curr={this.state.editStory}
+              onClose={() => this.setState({ showEdit: false })}
+            />
           </Page>
         </>
       );

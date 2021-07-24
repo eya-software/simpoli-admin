@@ -14,9 +14,7 @@ export default function Edit(props) {
   const [portraitImage, setPortraitImage] = useState(curr.portraitImage);
   const [video, setVideo] = useState(curr.video);
   const [description, setDescription] = useState(curr.description);
-  const [miniDescription, setMiniDescription] = useState(
-    curr.miniDescription
-  );
+  const [miniDescription, setMiniDescription] = useState(curr.miniDescription);
   const today = new Date();
 
   async function updatePost() {
@@ -218,9 +216,7 @@ export default function Edit(props) {
                   className="shadow-sm focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
                   value={miniDescription}
                   onChange={(event) => {
-                    setMiniDescription(
-                      event.target.value.substring(0, 200)
-                    );
+                    setMiniDescription(event.target.value.substring(0, 200));
                   }}
                 />
               </div>
