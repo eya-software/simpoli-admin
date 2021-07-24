@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import AlertDialog from "../components/AlertDialog";
 import { firestore as db } from "../firebase";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function Edit(props) {
   const curr = props.curr;
-  const { currentUser } = useAuth(curr.author);
-  const [firstName, setFirstName] = useState(
-    currentUser.displayName
-      ? currentUser.displayName.split(", ")[1].slice(0, -4)
-      : ""
-  );
-  const [lastName, setLastName] = useState(
-    currentUser.displayName ? currentUser.displayName.split(", ")[0] : ""
-  );
+  const [firstName, setFirstName] = useState(curr.author.split(" ")[0]);
+  const [lastName, setLastName] = useState(curr.author.split(" ")[1]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
