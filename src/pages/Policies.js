@@ -6,7 +6,7 @@ import { ArchiveIcon, TrashIcon, PencilIcon } from "@heroicons/react/outline";
 import { CircularProgress } from "@material-ui/core";
 import { firestore } from "../firebase";
 import Edit from "../components/Edit";
-
+import ReactMarkdown from "react-markdown";
 import "firebase/firestore";
 
 export default class Policies extends Component {
@@ -315,7 +315,16 @@ export default class Policies extends Component {
                 "/" +
                 this.state.currPolicy?.date?.getFullYear()}
             </p>
-            <p className="mt-2 mb-2">{this.state.currPolicy?.description}</p>
+            <ReactMarkdown
+              className="mt-2 mb-2"
+              components={{
+                ul: ({node, ...props}) => <ul className="list-disc ml-4" {...props} />,
+                ol: ({node, ...props}) => <ol className="list-decimal ml-4" {...props} />,
+                p: ({node, ...props}) => <p className="mt-4" {...props} />
+              }}
+            >
+              {this.state.currPolicy?.description}
+            </ReactMarkdown>
             <img src={this.state.currPolicy?.image} alt="Story" />
           </InfoModal>
         </>

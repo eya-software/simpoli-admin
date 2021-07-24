@@ -7,6 +7,7 @@ import { CircularProgress } from "@material-ui/core";
 import { firestore } from "../firebase";
 import "firebase/firestore";
 import Edit from "../components/Edit";
+import ReactMarkdown from "react-markdown";
 
 export default class News extends Component {
   constructor(props) {
@@ -305,6 +306,16 @@ export default class News extends Component {
                 "/" +
                 this.state.currStory?.date?.getFullYear()}
             </p>
+            <ReactMarkdown
+              className="mt-2 mb-2"
+              components={{
+                ul: ({node, ...props}) => <ul className="list-disc ml-4" {...props} />,
+                ol: ({node, ...props}) => <ol className="list-decimal ml-4" {...props} />,
+                p: ({node, ...props}) => <p className="mt-4" {...props} />
+              }}
+            >
+              {this.state.currPolicy?.description}
+            </ReactMarkdown>
             <p className="text-black mt-2 mb-2">
               {this.state.currStory?.description}
             </p>
