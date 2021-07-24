@@ -13,8 +13,6 @@ export default class Policies extends Component {
   constructor(props) {
     super(props);
 
-    this.hideEdit = this.hideEdit.bind(this);
-
     this.state = {
       loading: false,
       policies: [],
