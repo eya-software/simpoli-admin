@@ -75,10 +75,6 @@ export default class Policies extends Component {
     this.setState({ showEdit: true });
   }
 
-  hideEdit() {
-    this.setState({ showEdit: false });
-  }
-
   render() {
     if (this.state.loading) {
       return (
