@@ -309,9 +309,13 @@ export default class News extends Component {
             <ReactMarkdown
               className="mt-2 mb-2"
               components={{
-                ul: ({node, ...props}) => <ul className="list-disc ml-4" {...props} />,
-                ol: ({node, ...props}) => <ol className="list-decimal ml-4" {...props} />,
-                p: ({node, ...props}) => <p className="mt-4" {...props} />
+                ul: ({ node, ...props }) => (
+                  <ul className="list-disc ml-4" {...props} />
+                ),
+                ol: ({ node, ...props }) => (
+                  <ol className="list-decimal ml-4" {...props} />
+                ),
+                p: ({ node, ...props }) => <p className="mt-4" {...props} />,
               }}
             >
               {this.state.currStory?.description}

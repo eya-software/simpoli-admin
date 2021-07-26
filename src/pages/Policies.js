@@ -13,8 +13,6 @@ export default class Policies extends Component {
   constructor(props) {
     super(props);
 
-    this.hideEdit = this.hideEdit.bind(this);
-
     this.state = {
       loading: false,
       policies: [],
@@ -75,10 +73,6 @@ export default class Policies extends Component {
     const policy = this.state.policies.find((cur) => cur.id === id);
     this.setState({ editPolicy: policy });
     this.setState({ showEdit: true });
-  }
-
-  hideEdit() {
-    this.setState({ showEdit: false });
   }
 
   render() {
@@ -318,9 +312,13 @@ export default class Policies extends Component {
             <ReactMarkdown
               className="mt-2 mb-2"
               components={{
-                ul: ({node, ...props}) => <ul className="list-disc ml-4" {...props} />,
-                ol: ({node, ...props}) => <ol className="list-decimal ml-4" {...props} />,
-                p: ({node, ...props}) => <p className="mt-4" {...props} />
+                ul: ({ node, ...props }) => (
+                  <ul className="list-disc ml-4" {...props} />
+                ),
+                ol: ({ node, ...props }) => (
+                  <ol className="list-decimal ml-4" {...props} />
+                ),
+                p: ({ node, ...props }) => <p className="mt-4" {...props} />,
               }}
             >
               {this.state.currPolicy?.description}
