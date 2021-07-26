@@ -314,11 +314,8 @@ export default class News extends Component {
                 p: ({node, ...props}) => <p className="mt-4" {...props} />
               }}
             >
-              {this.state.currPolicy?.description}
-            </ReactMarkdown>
-            <p className="text-black mt-2 mb-2">
               {this.state.currStory?.description}
-            </p>
+            </ReactMarkdown>
             <img src={this.state.currStory?.image} alt="Story" />
           </InfoModal>
         </>
